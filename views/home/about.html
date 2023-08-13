@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About - Stela</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link rel="stylesheet" href="home.css">
+    
+</head>
+<body>
+
+    <section id="nav-placeholder"></section>
+
+    <section id="about">
+        <section id="home">
+            <div class="container">
+                <h1><span>About</span> Us</h1>
+                <p style="color: white;">
+            Welcome to Stela Football Kits, your source for top-quality football gear and apparel. Our mission is to provide football enthusiasts with authentic products that let you showcase your team pride in style.
+
+            At Stela, we curate a diverse range of kits, jerseys, footwear, and accessories from leading football brands. Our commitment to quality ensures you get gear that matches your passion for the beautiful game.
+
+            Our dedicated team is here to help you find the perfect kit and answer any questions you have. Explore our collection to express your love for football with confidence.
+
+            Join us in celebrating the spirit of football and browse our collection today. Stela Football Kits is more than a store—it's a community where fans unite.
+
+            Thank you for choosing Stela Football Kits. Let's kick off this journey together!</p>
+
+            </div>
+
+        </section>
+    </section>
+
+    <section id="footer-placeholder"></section>
+
+    <script>
+        fetch('nav.html')
+        .then(response => response.text())
+        .then(navHtml => {
+        document.querySelector('#nav-placeholder').innerHTML = navHtml;
+        });
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(footerHtml => {
+            document.querySelector('#footer-placeholder').innerHTML = footerHtml;
+        });
+    </script>
+
+</body>
+</html>

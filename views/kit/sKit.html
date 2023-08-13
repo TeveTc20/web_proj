@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Kit Details</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <section id="nav-placeholder"></section>
+
+    <main>
+        <div class="container">
+          <h2 id="productName"></h2>
+          <div class="row">
+            <div class="col-md-6">
+              <p id="kitImage" alt="Error">
+            </div>
+            <div class="col-md-6">
+              <h2 id="kitDetails">Kit Details :</h2>
+              <p id="kitLeague"></p>
+              <p id="kitTeam"></p>
+              <p id="kitPrice"></p>
+              <p id="kitDescription"></p>
+              <div class="input-group mb-3">
+                <input id="quantityInput" type="number" class="form-control" min="1" value="1">
+                <div class="input-group-append">
+                  <button id="addToCartBtn" class="btn btn-primary">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </main>
+
+    <section id="footer-placeholder"></section>
+   
+    <script>
+        $(document).ready(function() {
+        
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const kitId = urlParams.get('id');
+            
+            $.ajax({
+                type: 'GET',
+                url: '/kits/' + kitId,
+                success: function(kit) {
+                    $('#kitLeague').html(kit.league)
+                    $('#kitTeam').html(kit.team_name)
+                    $('#kitPrice').html(kit.price)
+                    $('#kitDescription').html(kit.description)
+                    $('#kitImage').html('<img src="' + kit.image + '" alt="Kit Image" width="300">') 
+                }
+            });
+        });
+
+
+        fetch('nav.html')
+        .then(response => response.text())
+        .then(navHtml => {
+        document.querySelector('#nav-placeholder').innerHTML = navHtml;
+        });
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(footerHtml => {
+            document.querySelector('#footer-placeholder').innerHTML = footerHtml;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Poppins", sans-serif;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+  
+  h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+  }
+  
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+  }
+  
+  h5 {
+    font-size: 1rem;
+    font-weight: 400;
+    color: black;
+  }
+  
+  h6 {
+    color: #d8d8d8;
+  }
+  
+  button{
+    font-size: 0.8rem;
+    font-weight: 700;
+    outline: none;
+    border: none;
+    background-color:white;
+    color: rgb(9, 9, 9);
+    padding: 13px 30px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  button:hover{
+    background-color: darkcyan;
+  }
+  
+  
+  /* navbar --------------------------------------- */
+  .navbar {
+    font-size: 16px;
+    top: 0;
+    left: 0;
+  }
+  
+  .navbar-light .navbar-nav .nav-link {
+    padding: 0 20px;
+    color: black;
+    transition: 0.3s ease;
+  }
+  
+  .navbar-light .navbar-nav .nav-link:hover,
+  .navbar i:hover,
+  .navbar-light .navbar-nav .nav-link.active,
+  .navbar i.active {
+    color: darkcyan;
+  }
+  
+  .navbar i {
+    font-size: 1.3rem;
+    padding: 0 10px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.3s ease;
+  }
+  
+  #bar {
+    font-size: 1.5rem;
+    padding: 7px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.3 ease;
+    color: black;
+  }
+  
+  #navbarSupportedContent > ul {
+    display: flex;
+    margin: 0; /* Remove margin to align items perfectly */
+    justify-content: flex-end;
+    align-items: center; /* Center items vertically */
+    list-style: none;
+    padding: 0;
+  }
+  
+  #navbarSupportedContent > ul > li:nth-child(n) > a {
+    padding: 10px;
+    text-decoration: none; /* Remove underline from links */
+  }
+  .icon-link {
+    color: darkcyan;; /* Change this to your desired color */
+  }
+  
+  /* home ---------------------------------------*/
+  #home{
+    background-image:url(messi);
+    width: 100%;
+    height: 100vh;
+    background-size:cover;
+    background-position: top center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  #home span{
+    color: #004D98;
+  }
+  #home h1{
+    color: #A50044;
+  }
+  
+  
+  /* cards --------------------------------------- */
+  .one {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .one img {
+    transition: transform 0.3s ease;
+  }
+  
+  .one:hover img {
+    transform: scale(1.1);
+  }
+  
+  .details {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .one:hover .details {
+    opacity: 1;
+  }
+  
+  .details h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .details .text {
+    background-color:white;;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .details .text:hover {
+    background-color: darkcyan;
+  }
+  
+  
+  /* leagues --------------------------------------- */
+  .img-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .img-wrapper img {
+    transition: transform 0.3s ease;
+    transform-origin: center center; 
+  }
+  
+  .img-wrapper:hover img {
+    transform: scale(1.1);
+  }
+  
+  /* footer --------------------------------------- */
+  #footer body {
+    margin-bottom: 100px;
+  }
+  
+  #footer .footer {
+    background-color: white;
+    color: #1d1d1d;
+    padding: 50px 0;
+    font-size: 14px;
+  }
+  
+  #footer .footer .logo {
+    color: #1d1d1d;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  #footer .footer .links a {
+    color: #1d1d1d;
+    text-decoration: none;
+    margin-right: 20px;
+  }
+  
+  #footer .footer .social-icons a {
+    color: #fff;
+    margin-right: 10px;
+  }
+  
+  #about {
+    background-image:url(images/home/messi.png);
+  width: 100%;
+  height: 100vh;
+  background-size:cover;
+  background-position: top center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  }
+  
+  
+   

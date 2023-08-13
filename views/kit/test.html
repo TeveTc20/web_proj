@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Leagues</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="home.css">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .kit-card {
+            width: 200px;
+            height: 330px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 40px;
+            display: inline-block;
+            vertical-align: top;
+          }
+          
+          .kit-card p {
+            margin-bottom: 1px;
+          }
+          
+          .kit-card img {
+            width: 100%;
+            height: 160px;
+            border-radius: 5px;
+          }
+          
+          .kit-card h2 {
+            font-size: 7mm;
+            margin: 5px 0;
+          }
+          
+          .kit-card h3 {
+            margin: 10px 0;
+          }
+    </style>
+</head>
+<body>
+    <section id="nav-placeholder"></section>
+    <p id="kitTeam"></p>
+    <section id="footer-placeholder"></section>
+
+   
+    <script>
+      $(document).ready(function() {
+        var kitId = '64d7c3c03bbb6766d3c72567';
+          $.ajax({
+              type: 'GET',
+              url: '/kits/'+ kitId,
+              success: function(kit) {
+                alert(kitId)
+                 $('#kitTeam').html(kit.team_name)
+              }
+          })
+        })
+        
+      fetch('nav.html')
+          .then(response => response.text())
+          .then(navHtml => {
+              document.querySelector('#nav-placeholder').innerHTML = navHtml;
+          });
+
+      fetch('footer.html')
+          .then(response => response.text())
+          .then(footerHtml => {
+              document.querySelector('#footer-placeholder').innerHTML = footerHtml;
+          });
+  </script>
+</body>
+</html>

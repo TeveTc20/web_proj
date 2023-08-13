@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Leagues</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="home.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="home.css">
+    <style>
+        .kit-card {
+            width: 200px;
+            height: 330px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 40px;
+            display: inline-block;
+            vertical-align: top;
+          }
+          
+          .kit-card p {
+            margin-bottom: 1px;
+          }
+          
+          .kit-card img {
+            width: 100%;
+            height: 160px;
+            border-radius: 5px;
+          }
+          
+          .kit-card h2 {
+            font-size: 7mm;
+            margin: 5px 0;
+          }
+          
+          .kit-card h3 {
+            margin: 10px 0;
+          }
+    </style>
+</head>
+<body>
+    <section id="nav-placeholder"></section>
+
+    <div class="container">
+        <div class="row">
+            <div id="filters" class="col-lg-3 col-md-4 col-12">
+                <h3>Leagues</h3>
+                <div id="league-checkboxes"></div> 
+            </div>
+            
+            </div>
+            <div id="kit-list" class="col-lg-9 col-md-8 col-12">
+                <!-- Kits will be displayed here -->
+            </div>
+        </div>
+    </div>
+    
+    <section id="footer-placeholder"></section>
+
+   
+    <script>
+      $(document).ready(function() {
+          var queryString = window.location.search;
+          var urlParams = new URLSearchParams(queryString);
+          var league = urlParams.get('league'); 
+
+          var url;
+          if (league) {
+              url = '/kits/' + encodeURIComponent(league);
+          } else {
+              url = '/kits/all';
+          }
+         
+
+          $.ajax({
+              type: 'GET',
+              url: url,
+              success: function(kits) {
+                  $.each(kits, function(index, kit) {
+                      var kitHtml = `
+                          <div class="kit-card">
+                              <img src="${kit.image}" alt="Error">
+                              <p>${kit.description}</p>
+                              <p>Price: ${kit.price}</p>
+                              <a href="/kits/${kit._id.$oid}" class="btn btn-info">View Product</a>
+                          </div>
+                      `;
+                      $('#kit-list').append(kitHtml);
+                  })
+              }
+          })
+        })
+        function applyFilters() {
+            var selectedLeagues = []; // Array to store selected leagues
+            $('input[type="checkbox"]:checked').each(function() {
+                selectedLeagues.push($(this).val());
+            });
+        
+            // Filter kits based on selected filters
+            var filteredKits = kits.filter(function(kit) {
+                return selectedLeagues.includes(kit.league);
+            });
+        
+            // Clear existing kits
+            $('#kit-list').empty();
+        
+            // Display filtered kits
+            $.each(filteredKits, function(index, kit) {
+                var kitHtml = `
+                    <div class="kit-card">
+                        <img src="${kit.image}" alt="${kit.name}">
+                        <p>${kit.description}</p>
+                        <p>Price: ${kit.price}</p>
+                        <a href="/kits/${kit._id.$oid}" class="btn btn-info">View Product</a>
+                    </div>
+                `;
+                $('#kit-list').append(kitHtml);
+            });
+        }
+        
+        $.ajax({
+            type: 'GET',
+            url: '/leagues', // Replace with the actual endpoint to fetch leagues
+            success: function(leagues) {
+                // Create checkboxes for each league
+                var checkboxesHtml = '';
+                leagues.forEach(function(league) {
+                    checkboxesHtml += `
+                        <input type="checkbox" id="${league}" value="${league}">
+                        <label for="${league}">${league}</label><br>
+                    `;
+                });
+                $('#league-checkboxes').html(checkboxesHtml);
+    
+                // Add event listener to checkboxes
+                $('input[type="checkbox"]').on('change', function() {
+                    applyFilters();
+                });
+    
+                // Initial call to display all kits
+                applyFilters();
+            }
+        });
+
+      fetch('nav.html')
+          .then(response => response.text())
+          .then(navHtml => {
+              document.querySelector('#nav-placeholder').innerHTML = navHtml;
+          });
+
+      fetch('footer.html')
+          .then(response => response.text())
+          .then(footerHtml => {
+              document.querySelector('#footer-placeholder').innerHTML = footerHtml;
+          });
+  </script>
+</body>
+</html>

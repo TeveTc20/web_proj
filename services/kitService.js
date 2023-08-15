@@ -20,12 +20,8 @@ const getKits = async () => {
 
 //Function to get a single product (kit) by ID
 const getKitById = async (kit_id) => {
-  kit.findById()
   return await kit.findById(kit_id);
 };
-
-
-
 
 
 const getKitByTeam = async (team_name) => {

@@ -69,10 +69,10 @@
 
           var url;
           if (league) {
-              url = '/kits/' + encodeURIComponent(league);
-          } else {
-              url = '/kits/all';
-          }
+               url = '/kits/league/' + encodeURIComponent(league);
+                } else {
+               url = '/kits/all';
+                    }
          
 
           $.ajax({
@@ -85,7 +85,7 @@
                               <img src="${kit.image}" alt="Error">
                               <p>${kit.description}</p>
                               <p>Price: ${kit.price}</p>
-                              <a href="/kits/${kit._id.$oid}" class="btn btn-info">View Product</a>
+                              <a href="sKit.html?id=${kit._id}" class="btn btn-info">View Product</a>
                           </div>
                       `;
                       $('#kit-list').append(kitHtml);
@@ -144,7 +144,8 @@
                 applyFilters();
             }
         });
-
+       
+      
       fetch('nav.html')
           .then(response => response.text())
           .then(navHtml => {

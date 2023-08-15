@@ -74,10 +74,16 @@ router.get('/messi', (req, res) => {
 
 
 //jsons-----------------------------------------------------------
-router.get('/kits', kitController.getKits);
+// router.get('/kits/all', kitController.getKits);
+// router.get('/kits/:league', kitController.getKitsByLeague);
+// router.get('/kits/:id', kitController.getKitById);
+// router.get('/kits', kitController.getKits);
+
 router.get('/kits/all', kitController.getKits);
-router.get('/kits/:league', kitController.getKitsByLeague);
-router.get('/kits/:id', kitController.getKitById);
+router.get('/kits/id/:id', kitController.getKitById);
+router.get('/kits/league/:league', kitController.getKitsByLeague);
+router.get('/kits', kitController.getKits);
+
 
 
 

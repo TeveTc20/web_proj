@@ -14,28 +14,46 @@
     <section id="nav-placeholder"></section>
 
     <main>
-        <div class="container">
+      <div class="container">
           <h2 id="productName"></h2>
           <div class="row">
-            <div class="col-md-6">
-              <p id="kitImage" alt="Error">
-            </div>
-            <div class="col-md-6">
-              <h2 id="kitDetails">Kit Details :</h2>
-              <p id="kitLeague"></p>
-              <p id="kitTeam"></p>
-              <p id="kitPrice"></p>
-              <p id="kitDescription"></p>
-              <div class="input-group mb-3">
-                <input id="quantityInput" type="number" class="form-control" min="1" value="1">
-                <div class="input-group-append">
-                  <button id="addToCartBtn" class="btn btn-primary">Add to Cart</button>
-                </div>
+              <div class="col-md-6">
+                  <p id="kitImage" alt="Error"></p>
               </div>
-            </div>
+              <div class="col-md-6">
+                  <h2 id="kitDetails">Kit Details :</h2>
+                  <p id="kitLeague"></p>
+                  <p id="kitTeam"></p>
+                  <p id="kitPrice"></p>
+                  <p id="kitDescription"></p>
+                  
+                  <!-- Size Section -->
+                  <div class="form-group">
+                      <label for="kitSize">Size:</label>
+                      <select id="kitSize" class="form-control">
+                          <option value="S">S</option>
+                          <option value="M">M</option>
+                          <option value="L">L</option>
+                          <option value="XL">XL</option>
+                      </select>
+                  </div>
+  
+                  <!-- Quantity Section -->
+                  <label for="quantityInput">Quantity:</label>
+                  <div class="input-group mb-3">
+                      <input id="quantityInput" type="number" class="form-control" min="1" value="1">
+                  </div>
+  
+                  <!-- Add to Cart Button -->
+                  <div class="text-right mt-3">
+                      <button id="addToCartBtn" class="btn btn-primary">Add to Cart</button>
+                  </div>
+              </div>
           </div>
-        </div>
-    </main>
+      </div>
+  </main>
+  
+  
 
     <section id="footer-placeholder"></section>
    
@@ -48,13 +66,16 @@
             
             $.ajax({
                 type: 'GET',
-                url: '/kits/' + kitId,
+                url: '/kits/id/' + kitId,
                 success: function(kit) {
                     $('#kitLeague').html(kit.league)
                     $('#kitTeam').html(kit.team_name)
                     $('#kitPrice').html(kit.price)
                     $('#kitDescription').html(kit.description)
                     $('#kitImage').html('<img src="' + kit.image + '" alt="Kit Image" width="300">') 
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                 console.error("Error fetching kit details: " + errorThrown);
                 }
             });
         });

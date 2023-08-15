@@ -1,4 +1,45 @@
 const kitService = require('../services/kitService');
+const kitModel = require('../models/kitModel')
+
+
+ //Get kit for search bar
+
+
+const getKitsSearch = async (req, res) => {
+  const payload = req.body.payload.trim();
+  
+  // Separate search for team_name and description
+  const searchTeamName = await kitModel.find({
+      team_name: { $regex: new RegExp(payload, 'i') }
+  }).limit(10).exec();
+
+  const searchDescription = await kitModel.find({
+      description: { $regex: new RegExp(payload, 'i') }
+  }).limit(10).exec();
+
+  // Create a set to keep track of unique values
+  const uniqueValues = new Set();
+
+  // Transform and combine search results while dropping duplicates
+  const transformedResults = [];
+
+  function addToResults(item, field) {
+      if (!uniqueValues.has(item[field])) {
+          transformedResults.push({
+              ...item.toObject(),
+              matchedField: field,
+              value: item[field]
+          });
+          uniqueValues.add(item[field]);
+      }
+  }
+
+  searchTeamName.forEach(item => addToResults(item, 'team_name'));
+  searchDescription.forEach(item => addToResults(item, 'description'));
+
+  res.send({ payload: transformedResults });
+}
+
 
 const createKit = async (req, res) => {
   const { team_name, price, description, size, image, isAvailable } = req.body;
@@ -75,6 +116,7 @@ const getTopSellingKits = async (req, res) => {
 
 module.exports = {
   createKit,
+  getKitsSearch,
   getKitById,
   getKitsByTeam,
   getKitsByLeague,

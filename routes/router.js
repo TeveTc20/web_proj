@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const kitController = require('../controllers/kitController');
+const userController = require('../controllers/userController');
+
 
 
 // htmls-------------------------------------------------------
@@ -71,6 +73,30 @@ router.get('/mancity', (req, res) => {
 router.get('/messi', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/home/images/home/messi.png'));
 });
+
+
+//Search----------------------------------------------------------
+router.post('/getKits', kitController.getKitsSearch);
+
+//Auth------------------------------------------------------------
+
+router.route('/login.html').get(async(req, res) => {
+    res.sendFile(path.join(__dirname, '../views/home/login.html'));
+}).post(userController.login)
+
+router.get('/login.css', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/home/login.css'));
+});
+
+router.route('/register.html').get(async(req, res) => {
+    res.sendFile(path.join(__dirname, '../views/home/register.html'));
+}).post(userController.register);
+
+router.get('/register.css', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/home/register.css'));
+});
+
+
 
 
 //jsons-----------------------------------------------------------

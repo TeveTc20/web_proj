@@ -72,37 +72,37 @@ router.get('/mancity', (req, res) => {
 router.get('/messi', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/home/images/home/messi.png'));
 });
+
 //Auth------------------------------------------------------------
 
 router.route('/login.html').get(async(req, res) => {
     res.sendFile(path.join(__dirname, '../views/user/login.html'));
 }).post(logInController.loginUser)
 
-// router.get('/login.css', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../views/home/login.css'));
-// });
+router.get('/login.css', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/user/login.css'));
+});
 
 router.route('/register.html').get(async(req, res) => {
     res.sendFile(path.join(__dirname, '../views/user/register.html'));
 }).post(logInController.registerUser);
 
-// router.get('/register.css', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../views/home/register.css'));
-// });
+router.get('/register.css', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/user/register.css'));
+});
 
 
 //jsons-----------------------------------------------------------
-// router.get('/kits/all', kitController.getKits);
-// router.get('/kits/:league', kitController.getKitsByLeague);
-// router.get('/kits/:id', kitController.getKitById);
-// router.get('/kits', kitController.getKits);
 
 router.get('/kits/all', kitController.getKits);
 router.get('/kits/id/:id', kitController.getKitById);
 router.get('/kits/league/:league', kitController.getKitsByLeague);
 router.get('/kits', kitController.getKits);
-router.route('/cart/items/:id').post(cartController.isloggedin,cartController.createCartController).put(cartController.updateCartController).delete(cartController.deleteCartController)
-router.get('/cart/items',cartController.getCartsController)
+
+router.route('/carts/items/:id').post(cartController.isloggedin,cartController.createCartController).put(cartController.updateCartController).delete(cartController.deleteCartController)
+router.get('/carts/items',cartController.getCartsController)
+
+router.post('/kits/filter',kitController.filter)
 
 
 

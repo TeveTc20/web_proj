@@ -2,11 +2,17 @@ const cartService = require("../services/cartService"); // Import the service
 const kitService= require("../services/kitService");
 // Create Cart
 const createCartController = async (req, res) => {
+
     try {
+       
         const { kitId, size, quantity } = req.body;
 
         const userName=req.session.username
         const kit=kitService.getKitById(kitId)
+        console.log(kit._id+"1")
+        console.log(kit.kitId+"2")
+        console.log(kit.id+"3")
+        console.log(kit.price+"5")
         const totalPrice=kit.price
 
         const cartItem=await cartService.findCartByKitAndUsername(kitId,userName)
@@ -16,6 +22,7 @@ const createCartController = async (req, res) => {
          const updateCartItem=await cartService.updateCart(kitId,size,totalquantity,totalPrice,userName)
     }
     else{
+        console.log("User is logged in and creating cart");
         const cart = await cartService.createCart(userName, kitId, size, quantity, totalPrice);
        
     }
@@ -82,9 +89,13 @@ const deleteAllUserCartsController = async (req, res) => {
     }
 };
 const isloggedin=async(req,res,next)=>{
-    if(req.session.username)
+    if(req.session.username){
+        console.log("user is logged in");
       return next()
-      else res.json({isloggedin:false})
+    }
+
+    else 
+      res.json({isloggedin:false})
   }
 module.exports = {
     createCartController,

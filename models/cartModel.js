@@ -8,7 +8,7 @@ const cartSchema = new Schema({
     },
     kit: {
         type: Schema.Types.ObjectId,
-        ref: 'kit',
+        ref: 'kits',
         required: true,
     },
     size: {

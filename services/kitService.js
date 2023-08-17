@@ -74,6 +74,25 @@ const search = async (query) => {
       return -1;
     }
   };
+const filter=async(category,eggSize,traySize)=>{
+
+    
+    const query = {};
+  
+    if (category) {
+      query.category = { $in: category };
+    }
+  
+    if (eggSize) {
+      query.EggSize = { $in: eggSize };
+    }
+  
+    if (traySize) {
+      query.traysize = { $in: traySize };
+    }
+  
+    return Product.find(query);
+}
 
 module.exports = {
   createkit,
@@ -85,5 +104,6 @@ module.exports = {
   deleteKit,
   updateSalesCount,
   search,
-  getTopSellingKits
+  getTopSellingKits,
+  filter,
 };

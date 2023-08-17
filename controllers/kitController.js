@@ -72,6 +72,19 @@ const getTopSellingKits = async (req, res) => {
   const topSellingkits = await kitService.getTopSellingkits(parseInt(limit));
   res.json(topSellingkits);
 };
+const filter=async(req,res)=>{
+  const {category,eggSize,traySize}=req.body
+
+  ProductService.filter(category,eggSize,traySize)
+    .then(products => {
+      res.json({products:products});
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ error: 'Error retrieving products' });
+    });
+
+}
 
 module.exports = {
   createKit,
@@ -84,4 +97,5 @@ module.exports = {
   updateSalesCount,
   searchKits,
   getTopSellingKits,
+  filter,
 };

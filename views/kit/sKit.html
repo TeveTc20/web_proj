@@ -88,7 +88,7 @@
                 const kitId = urlParams.get('id');
             
           $.ajax({
-              url: '/cart/items/'+kitId,
+              url: '/carts/items/'+kitId,
               method: 'POST',
               data: { 
                       kitId: kitId,
@@ -107,17 +107,8 @@
         });
 
 
-        fetch('nav.html')
-        .then(response => response.text())
-        .then(navHtml => {
-        document.querySelector('#nav-placeholder').innerHTML = navHtml;
-        });
-
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(footerHtml => {
-            document.querySelector('#footer-placeholder').innerHTML = footerHtml;
-        });
+        fetch('nav.html').then(response => response.text()).then(navHtml => {document.querySelector('#nav-placeholder').innerHTML = navHtml;});
+        fetch('footer.html').then(response => response.text()).then(footerHtml => {document.querySelector('#footer-placeholder').innerHTML = footerHtml;});
     </script>
 </body>
 </html>

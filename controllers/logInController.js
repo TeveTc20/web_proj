@@ -8,7 +8,7 @@ const loginUser = async (req, res) => {
     return res.status(401).json({ message: 'Invalid username or password' });
   }
   else{
-        req.username=username
+        req.session.username=username
        return res.redirect('/')
      }
 };

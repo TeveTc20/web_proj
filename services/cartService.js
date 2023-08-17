@@ -1,14 +1,25 @@
 const Cart = require("../models/cartModel");
 
 const createCart = async (username, kit, size, quantity, totalPrice) => {
+    console.log("creating cart")
+    console.log(totalPrice);
     const newCart = new Cart({
-        username: username,
-        kit: kit,
-        size: size,
-        quantity: quantity,
-        totalPrice: totalPrice
+        username,
+        kit,
+        size,
+        quantity,
+        totalPrice
     });
-    return await newCart.save();
+    // console.log("creating cart and saving")
+    // return await newCart.save();
+    try {
+        const savedCart = await newCart.save();
+        console.log("Cart saved:", savedCart);
+        return savedCart;
+    } catch (error) {
+        console.error("Error saving cart:", error);
+        throw error; // Rethrow the error to be handled at a higher level
+    }
 };
 
 const getCartsByUsername = async (username) => {

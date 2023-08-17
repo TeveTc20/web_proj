@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const kitController = require('../controllers/kitController');
-
-
+const cartController=require('../controllers/cartController')
+const userController=require('../controllers/userController')
+const logInController=require('../controllers/logInController')
 // htmls-------------------------------------------------------
 router.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, "../views/home/home.html"));
@@ -71,6 +72,23 @@ router.get('/mancity', (req, res) => {
 router.get('/messi', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/home/images/home/messi.png'));
 });
+//Auth------------------------------------------------------------
+
+router.route('/login.html').get(async(req, res) => {
+    res.sendFile(path.join(__dirname, '../views/user/login.html'));
+}).post(logInController.loginUser)
+
+// router.get('/login.css', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../views/home/login.css'));
+// });
+
+router.route('/register.html').get(async(req, res) => {
+    res.sendFile(path.join(__dirname, '../views/user/register.html'));
+}).post(logInController.registerUser);
+
+// router.get('/register.css', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../views/home/register.css'));
+// });
 
 
 //jsons-----------------------------------------------------------
@@ -83,6 +101,8 @@ router.get('/kits/all', kitController.getKits);
 router.get('/kits/id/:id', kitController.getKitById);
 router.get('/kits/league/:league', kitController.getKitsByLeague);
 router.get('/kits', kitController.getKits);
+router.route('/cart/items/:id').post(cartController.isloggedin,cartController.createCartController).put(cartController.updateCartController).delete(cartController.deleteCartController)
+router.get('/cart/items',cartController.getCartsController)
 
 
 

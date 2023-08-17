@@ -78,6 +78,32 @@
                  console.error("Error fetching kit details: " + errorThrown);
                 }
             });
+
+            $('#addToCartBtn').click(function() {
+            
+                const quantity = $('#quantityInput').val();
+                 const size= $('#kitSize').val();
+                 const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                const kitId = urlParams.get('id');
+            
+          $.ajax({
+              url: '/cart/items/'+kitId,
+              method: 'POST',
+              data: { 
+                      kitId: kitId,
+                      size:size,
+                      quantity:quantity
+                     },
+              success:function(response){
+              if(response.isloggedin===false)
+                 window.location.href = '/login.html'
+                else
+                 window.location.href = '/kits' 
+
+              }
+      });
+    });
         });
 
 

@@ -46,50 +46,15 @@
     </style>
 </head>
 <body>
+    
     <section id="nav-placeholder"></section>
     
     <div class="container">
         <div class="row">
             <div class="col-md-3 filter-section">
-                <h2>all Kits</h2>
-                <h5>Leagues</h5>
-                <div class="form-check">
-                    <input class="form-check-input league-checkbox" type="checkbox" id="leaguePremierLeague" name="league" value="Premier League">
-                    <label class="form-check-label" for="leaguePremierLeague">
-                        Premier League
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input league-checkbox" type="checkbox" id="leagueLaLiga" name="league" value="La Liga">
-                    <label class="form-check-label" for="leagueLaLiga">
-                        La Liga
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input league-checkbox" type="checkbox" id="leagueSeriaA" name="league" value="Seria A">
-                    <label class="form-check-label" for="leagueSeriaA">
-                        Seria A
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input league-checkbox" type="checkbox" id="leagueLeague1" name="league" value="League 1">
-                    <label class="form-check-label" for="leagueLeague1">
-                        League 1
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input league-checkbox" type="checkbox" id="leagueBundesliga" name="league" value="Bundesliga">
-                    <label class="form-check-label" for="leagueBundesliga">
-                        Bundesliga
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input league-checkbox" type="checkbox" id="leagueInternational" name="league" value="International">
-                    <label class="form-check-label" for="leagueInternational">
-                        International
-                    </label>
-                </div>
-                <hr>
+
+                <h2 id="league-name"></h2>
+                
                 <h5>Teams</h5>
                 <div class="form-check">
                     <input class="form-check-input team-checkbox" type="checkbox" id="teamArsenal" name="team" value="Arsenal">
@@ -262,6 +227,7 @@
                             </div>
                         `;
                         $('#kit-list').append(kitHtml);
+                        $('#league-name').html(kit.league + " kits");
                     });
                 } else {
                     var noResultsElement = $('<div>').text('No kits found.');
@@ -287,7 +253,7 @@
                     selectedTypes.push($(this).val());
                 });
         
-                /*var filteredKits = kits.filter(function(kit) {
+               /* var filteredKits = kits.filter(function(kit) {
                     
                     var leagueMatch = selectedLeagues.includes(kit.league);
                     var teamMatch = selectedTeams.includes(kit.team_name);
@@ -296,7 +262,7 @@
                     return leagueMatch || teamMatch || typeMatch;
                 });
                 */
-
+                
                 var filteredKits = kits.filter(function(kit) {
                     
                     var leagueMatch = selectedLeagues.includes(kit.league);
@@ -316,50 +282,61 @@
 
             }
         
-            // Fetch initial kits data and apply filters on page load
+        
+            // Fetch query parameters from the URL
             var queryString = window.location.search;
             var urlParams = new URLSearchParams(queryString);
-            var league = urlParams.get('league'); 
+            var league = urlParams.get('league');
             var team_name = urlParams.get('team_name');
             var type = urlParams.get('type');
         
-            var url = '/kits'; // Default URL
-        
+            // Mark the corresponding league checkbox as selected and disable others
             if (league) {
-                url = '/kits/league/' + encodeURIComponent(league);
-            }
+                $('#league' + league.replace(' ', '')).prop('checked', true);
         
-            if (team_name) {
-                url = '/kits/team_Name/' + encodeURIComponent(team_name); 
-            }
-        
-            if (type) {
-                url = '/kits/type/' + encodeURIComponent(type);
-               
-            }
-        
-            fetchKits(url).done(function(kits) {
-                applyFilters(kits); // Apply initial filters
-            });
-        
-            // Attach event listeners to filter checkboxes
-            $('.league-checkbox, .team-checkbox, .type-checkbox').change(function() {
-                fetchKits(url).done(function(kits) {
-                    applyFilters(kits); // Apply filters on checkbox change
+                // Disable the other league checkboxes
+                $('.league-checkbox').each(function() {
+                    var checkboxValue = $(this).val();
+                    if (checkboxValue !== league) {
+                        $(this).prop('disabled', true);
+                        $(this).next('.form-check-label').addClass('text-muted'); // Add a class to style as muted
+                    }
                 });
-            });
         
-            // Fetch and display navigation and footer
+                // Fetch kits from the specific league
+                var leagueUrl = '/kits/league/' + encodeURIComponent(league);
+                fetchKits(leagueUrl).done(function(kits) {
+                    // Populate team filter checkboxes with teams from the selected league
+                    var teamsInLeague = [...new Set(kits.map(kit => kit.team_name))];
+                    $('.team-checkbox').each(function() {
+                        var checkboxValue = $(this).val();
+                        if (!teamsInLeague.includes(checkboxValue)) {
+                            $(this).parent('.form-check').hide(); // Hide the checkbox label and input
+                        }
+                    });
+        
+                    // Apply initial filters for teams within the league
+                    applyFilters(kits);
+                });
+        
+                // Attach event listeners to team and type checkboxes
+                $('.team-checkbox, .type-checkbox').change(function() {
+                    fetchKits(leagueUrl).done(function(kits) {
+                        applyFilters(kits); // Apply filters on checkbox change
+                    });
+                });
+            }
+            
             fetch('nav.html').then(response => response.text()).then(navHtml => {
                 document.querySelector('#nav-placeholder').innerHTML = navHtml;
-            });
-        
+            });       
             fetch('footer.html').then(response => response.text()).then(footerHtml => {
                 document.querySelector('#footer-placeholder').innerHTML = footerHtml;
             });
+        
+           
         });
         
-    
     </script>
 </body>
 </html>

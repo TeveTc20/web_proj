@@ -5,31 +5,25 @@ const createCartController = async (req, res) => {
 
     try {
        
-        const { kitId, size, quantity } = req.body;
-
+        const { kitId,size, quantity } = req.body;
         const userName=req.session.username
-        const kit=kitService.getKitById(kitId)
-        console.log(kit._id+"1")
-        console.log(kit.kitId+"2")
-        console.log(kit.id+"3")
-        console.log(kit.price+"5")
-        const totalPrice=kit.price
-
-        const cartItem=await cartService.findCartByKitAndUsername(kitId,userName)
+        const kit=await kitService.getKitById(kitId)
+        let price = parseFloat(kit.price.slice(0, -1));
+        const cartItem=await cartService.findCartByKitAndUsername(kitId,userName,size)
         if(cartItem){
-          const totalquantity=quantity+cartItem.quantity
-         const totalPrice=kit.price*totalquantity
-         const updateCartItem=await cartService.updateCart(kitId,size,totalquantity,totalPrice,userName)
+        let totalquantity=Number(quantity)+cartItem.quantity
+        price=price*totalquantity
+        const updateCartItem=await cartService.updateCart(kitId,size,totalquantity,price,userName)
     }
     else{
-        console.log("User is logged in and creating cart");
-        const cart = await cartService.createCart(userName, kitId, size, quantity, totalPrice);
-       
+        const cart = await cartService.createCart(userName, kitId, size, quantity, price);      
     }
     } catch (error) {
         res.status(500).json({ errors: ['Failed to create cart'] });
     }
-};
+    res.redirect('/allKits.html')
+}
+
 
 // Get Carts by Username
 const getCartsController = async (req, res) => {
@@ -46,7 +40,7 @@ const getCartsController = async (req, res) => {
 const findCartByKitAndUsernameController = async (req, res) => {
     try {
         const { kitId, username } = req.body; // Can be adjusted based on request structure
-        const cart = await cartService.findCartByKitAndUsername(kitId, username);
+        const cart = await cartService.findCartByKitAndUsername(kitId, username,size);
         if (!cart) {
             return res.status(404).json({ errors: ['Cart not found'] });
         }

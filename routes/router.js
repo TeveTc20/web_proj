@@ -5,7 +5,8 @@ const kitController = require('../controllers/kitController');
 const cartController=require('../controllers/cartController')
 const userController=require('../controllers/userController')
 const logInController=require('../controllers/logInController')
-// htmls-------------------------------------------------------
+
+// home-------------------------------------------------------
 router.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, "../views/home/home.html"));
 });
@@ -27,18 +28,50 @@ router.get('/contact.html', function(req, res) {
 router.get('/branches.html', function(req, res) {
     res.sendFile(path.join(__dirname, "../views/home/branches.html"));
 });
+router.get('/home.css', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/home/home.css'));
+});
+
+//kits------------------------------------------------------------
 router.get('/allKits.html', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/kit/allKits.html'));
 });
 router.get('/sKit.html', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/kit/sKit.html'));
 });
-router.get('/test.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/kit/test.html'));
+router.get('/leagueKits.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/kit/leagueKits.html'));
 });
-router.get('/home.css', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/home/home.css'));
+router.get('/kits', kitController.getKits);
+router.get('/kits/id/:id', kitController.getKitById);
+router.get('/kits/league/:league', kitController.getKitsByLeague);
+router.get('/kits/team_name/:team_name', kitController.getKitsByTeam);
+router.post('/kits/filter',kitController.filter)
+
+//user------------------------------------------------------------
+router.route('/login.html').get(async(req, res) => {
+    res.sendFile(path.join(__dirname, '../views/user/login.html'));
+}).post(logInController.loginUser)
+
+router.get('/login.css', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/user/login.css'));
 });
+
+router.route('/register.html').get(async(req, res) => {
+    res.sendFile(path.join(__dirname, '../views/user/register.html'));
+}).post(logInController.registerUser);
+
+router.get('/register.css', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/user/register.css'));
+});
+
+//cart-----------------------------------------------------------------
+router.get('/cart.html', function(req, res) {
+    res.sendFile(path.join(__dirname, "../views/cart/cart.html"));
+});
+
+router.route('/carts/items/:id').post(cartController.isloggedin,cartController.createCartController).put(cartController.updateCartController).delete(cartController.deleteCartController)
+router.get('/carts/items',cartController.getCartsController)
 
 
 //images------------------------------------------------------------
@@ -72,41 +105,5 @@ router.get('/mancity', (req, res) => {
 router.get('/messi', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/home/images/home/messi.png'));
 });
-
-//Auth------------------------------------------------------------
-
-router.route('/login.html').get(async(req, res) => {
-    res.sendFile(path.join(__dirname, '../views/user/login.html'));
-}).post(logInController.loginUser)
-
-router.get('/login.css', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/user/login.css'));
-});
-
-router.route('/register.html').get(async(req, res) => {
-    res.sendFile(path.join(__dirname, '../views/user/register.html'));
-}).post(logInController.registerUser);
-
-router.get('/register.css', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/user/register.css'));
-});
-
-
-//jsons-----------------------------------------------------------
-
-router.get('/kits/all', kitController.getKits);
-router.get('/kits/id/:id', kitController.getKitById);
-router.get('/kits/league/:league', kitController.getKitsByLeague);
-router.get('/kits', kitController.getKits);
-
-router.route('/carts/items/:id').post(cartController.isloggedin,cartController.createCartController).put(cartController.updateCartController).delete(cartController.deleteCartController)
-router.get('/carts/items',cartController.getCartsController)
-
-router.post('/kits/filter',kitController.filter)
-
-
-
-
-
 
 module.exports = router;

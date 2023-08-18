@@ -73,11 +73,11 @@ const getTopSellingKits = async (req, res) => {
   res.json(topSellingkits);
 };
 const filter=async(req,res)=>{
-  const {category,eggSize,traySize}=req.body
+  const {league,team_name,type}=req.body
 
-  ProductService.filter(category,eggSize,traySize)
-    .then(products => {
-      res.json({products:products});
+  kitService.filter(league,team_name,type)
+    .then(kits => {
+      res.json({kits:kits});
     })
     .catch(error => {
       console.error(error);

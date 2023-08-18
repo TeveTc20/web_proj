@@ -10,24 +10,16 @@ const createCart = async (username, kit, size, quantity, totalPrice) => {
         quantity,
         totalPrice
     });
-    // console.log("creating cart and saving")
-    // return await newCart.save();
-    try {
-        const savedCart = await newCart.save();
-        console.log("Cart saved:", savedCart);
-        return savedCart;
-    } catch (error) {
-        console.error("Error saving cart:", error);
-        throw error; // Rethrow the error to be handled at a higher level
-    }
+    return await newCart.save(); 
 };
 
 const getCartsByUsername = async (username) => {
     return await Cart.find({ username });
 };
 
-const findCartByKitAndUsername = async (kit, username) => {
-    return await Cart.findOne({ kit, username });
+const findCartByKitAndUsername = async (kit, username,size) => {
+    
+    return await Cart.findOne({ kit, username,size });
 };
 
 const updateCart = async (kit, size, quantity, totalPrice, username) => {

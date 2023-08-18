@@ -74,24 +74,24 @@ const search = async (query) => {
       return -1;
     }
   };
-const filter=async(category,eggSize,traySize)=>{
+const filter=async(league,team_name,type)=>{
 
     
     const query = {};
   
-    if (category) {
-      query.category = { $in: category };
+    if (league) {
+      query.league = { $in: league };
     }
   
-    if (eggSize) {
-      query.EggSize = { $in: eggSize };
+    if (team_name) {
+      query.team_name = { $in: team_name };
     }
   
-    if (traySize) {
-      query.traysize = { $in: traySize };
+    if (type) {
+      query.type = { $in: type };
     }
   
-    return Product.find(query);
+    return kit.find(query);
 }
 
 module.exports = {

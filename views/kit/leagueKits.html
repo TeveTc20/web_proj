@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="home.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="home.css">
+    <script src="search.js"></script>
+    <script src="nav.js"></script>
+    <script src="footer.js"></script>
     <style>
         .kit-card {
             width: calc(33.33% - 20px); /* Distribute kits in 3 columns with some spacing */
@@ -326,13 +329,7 @@
                     });
                 });
             }
-            
-            fetch('nav.html').then(response => response.text()).then(navHtml => {
-                document.querySelector('#nav-placeholder').innerHTML = navHtml;
-            });       
-            fetch('footer.html').then(response => response.text()).then(footerHtml => {
-                document.querySelector('#footer-placeholder').innerHTML = footerHtml;
-            });
+        
         
            
         });

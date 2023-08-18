@@ -28,7 +28,8 @@ const createCartController = async (req, res) => {
 // Get Carts by Username
 const getCartsController = async (req, res) => {
     try {
-        const { username } = req.session.username; // Assuming you are passing the username as a URL parameter
+        const { username } = req.session;
+        console.log(username) // Assuming you are passing the username as a URL parameter
         const carts = await cartService.getCartsByUsername(username);
         res.json(carts);
     } catch (error) {

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <title>Cart - Stela</title>
+</head>
+<body>
+    <div id="cart-items"></div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            const cartItemsContainer = $('#cart-items');
+        
+            // Fetch cart items from the server using AJAX
+            $.ajax({
+                url: '/carts/items', // Change the URL according to your API endpoint
+                method: 'GET',
+                dataType: 'json',
+                success: function(cartItems) {
+                    console.log(cartItems)
+            
+                    cartItems.forEach(function(cartItem) {
+                        const itemElement = $('<div>').addClass('cart-item')
+                            .append($('<p>').html(`<strong>Item:</strong> ${cartItem.kit}`))
+                            .append($('<p>').html(`<strong>Size:</strong> ${cartItem.size}`))
+                            .append($('<p>').html(`<strong>Quantity:</strong> ${cartItem.quantity}`))
+                            .append($('<p>').html(`<strong>Total Price:</strong> $${cartItem.totalPrice}`));
+                        cartItemsContainer.append(itemElement);
+                    });
+                },
+                error: function(error) {
+                    console.error('Error fetching cart items:', error);
+                }
+            });
+        });
+        
+    </script>
+    
+</body>
+</html>

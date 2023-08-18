@@ -23,10 +23,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="branches.html">Branches</a> 
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" >
                         <form class="navbar-form pull-left">
-                            <input type="text" class="span2">
-                            <button type="submit" class="btn">Submit</button>
+                            <input type="text" class="span2" placeholder="Search..." onkeyup="sendData(this)">
+                            <section id="searchResults">
+                            </section>
                           </form>
                     </li>
                     <li class="nav-item">

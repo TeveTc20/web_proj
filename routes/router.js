@@ -31,6 +31,13 @@ router.get('/branches.html', function(req, res) {
 router.get('/home.css', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/home/home.css'));
 });
+router.get('/nav.js', (req, res) => {
+    res.sendFile(path.join(__dirname, '../scripts/nav.js'));
+});
+router.get('/footer.js', (req, res) => {
+    res.sendFile(path.join(__dirname, '../scripts/footer.js'));
+});
+
 
 //kits------------------------------------------------------------
 router.get('/allKits.html', (req, res) => {
@@ -47,6 +54,12 @@ router.get('/kits/id/:id', kitController.getKitById);
 router.get('/kits/league/:league', kitController.getKitsByLeague);
 router.get('/kits/team_name/:team_name', kitController.getKitsByTeam);
 router.post('/kits/filter',kitController.filter)
+
+//Search----------------------------------------------------------
+router.post('/getKits', kitController.getKitsSearch);
+router.get('/search.js', (req, res) => {
+    res.sendFile(path.join(__dirname, '../scripts/search.js'));
+});
 
 //user------------------------------------------------------------
 router.route('/login.html').get(async(req, res) => {

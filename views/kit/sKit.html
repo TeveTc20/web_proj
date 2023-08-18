@@ -9,6 +9,9 @@
     <title>Kit Details</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="home.css">
+    <script src="search.js"></script>
+    <script src="nav.js"></script>
+    <script src="footer.js"></script>
 </head>
 <body>
     <section id="nav-placeholder"></section>
@@ -106,9 +109,6 @@
     });
         });
 
-
-        fetch('nav.html').then(response => response.text()).then(navHtml => {document.querySelector('#nav-placeholder').innerHTML = navHtml;});
-        fetch('footer.html').then(response => response.text()).then(footerHtml => {document.querySelector('#footer-placeholder').innerHTML = footerHtml;});
     </script>
 </body>
 </html>

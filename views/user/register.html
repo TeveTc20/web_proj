@@ -11,67 +11,9 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="register.css">
     <link rel="stylesheet" href="home.css">
-    
-    <style>
-        #register {
-            background-color: white;
-            color: #1d1d1d;
-            padding: 30px;
-            font-size: 16px;
-            margin: 50px auto;
-            max-width: 400px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        #register h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #A50044;
-            margin-bottom: 20px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #d8d8d8;
-            border-radius: 5px;
-            transition: border-color 0.3s ease;
-        }
-        
-        .form-group input:focus {
-            border-color: darkcyan;
-        }
-        
-        button[type="submit"] {
-            font-size: 0.8rem;
-            font-weight: 700;
-            outline: none;
-            border: none;
-            background-color: white;
-            color: rgb(9, 9, 9);
-            padding: 13px 30px;
-            cursor: pointer;
-            transition: 0.3s ease;
-            display: block;
-            width: 100%;
-        }
-        
-        button[type="submit"]:hover {
-            background-color: darkcyan;
-            color: white;
-        }
-    </style>
+    <script src="search.js"></script>
+    <script src="nav.js"></script>
+    <script src="footer.js"></script>
 </head>
 <body>
 
@@ -97,62 +39,6 @@
     </div>
 
     <section id="footer-placeholder"></section>
-
-    <script>
-        fetch('nav.html')
-        .then(response => response.text())
-        .then(navHtml => {
-        document.querySelector('#nav-placeholder').innerHTML = navHtml;
-        });
-
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(footerHtml => {
-            document.querySelector('#footer-placeholder').innerHTML = footerHtml;
-        });
-
-        function sendData(e) {
-    const searchResults = document.getElementById('searchResults');
-    const input = e.value.trim();
-    const searchBoxRect = e.getBoundingClientRect();
-    if (input === '') {
-        searchResults.style.display = 'none';
-        return;
-    }
-    fetch('getKits', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ payload: input })
-    }).then(res => res.json()).then(data => {
-        let payload = data.payload;
-        searchResults.innerHTML = '';
-        if (payload.length < 1) {
-            searchResults.innerHTML = '<p>No Results</p>';
-            searchResults.style.display = 'block';
-            return;
-        }
-        payload.forEach((item, index) => {
-            if (index > 0) searchResults.innerHTML += '<hr>';
-            const resultElement = document.createElement('p');
-            resultElement.textContent = item.value; // Display the matched value
-            resultElement.classList.add('search-result');
-            resultElement.addEventListener('click', () => {
-                if (item.matchedField === 'team_name') {
-                    // Handle navigation to team page (replace 'team.html' with actual team page)
-                    window.location.href = `team.html?team_name=${encodeURIComponent(item.value)}`;
-                } else if (item.matchedField === 'description') {
-                    // Handle navigation to specific item page (replace 'sKit.html' with actual item page)
-                    window.location.href = `sKit.html?id=${item.id}`;
-                }
-            });
-            searchResults.appendChild(resultElement);
-        });
-        searchResults.style.display = 'block';
-        searchResults.style.top = `${searchBoxRect.bottom}px`;
-    });
-}
-
-    </script>
 
 </body>
 

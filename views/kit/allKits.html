@@ -356,5 +356,16 @@
         
     
     </script>
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            
+            if (error && error === 'NoItemsInCart') {
+                // Display the error message. You can customize this part based on your design
+                alert('Please add items to your cart before checking out.');
+            }
+        }
+        </script>
 </body>
 </html>

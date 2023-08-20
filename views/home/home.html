@@ -128,8 +128,34 @@
             </div>
 
         </section>
-
         <section id="footer-placeholder"></section>
+
+            <script>
+
+            $(document).ready(function() {
+            
+                
+                $('#userIcon').on('click', function(e)  {
+                    alert("1")
+                    
+                    $.ajax({
+                        url: '/check-login',
+                        method: 'GET',
+                        success: function(response) {
+                            if (response.isloggedin) {
+                                window.location.href = '/myAccount.html';
+                            } 
+                            else {
+                                window.location.href = '/login.html';
+                            }
+                        },
+                        error: function() {
+                            console.log('Error checking login status');
+                        }
+                    });
+                });
+            });
+            </script>
 
     </body>
 

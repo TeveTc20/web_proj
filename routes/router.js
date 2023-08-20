@@ -5,6 +5,7 @@ const kitController = require('../controllers/kitController');
 const cartController=require('../controllers/cartController')
 const userController=require('../controllers/userController')
 const logInController=require('../controllers/logInController')
+const orderController=require('../controllers/orderController')
 
 // home-------------------------------------------------------
 router.get('/', function(req, res) {
@@ -82,11 +83,16 @@ router.get('/register.css', (req, res) => {
 router.get('/cart.html', function(req, res) {
     res.sendFile(path.join(__dirname, "../views/cart/cart.html"));
 });
-
+router.get('/cart.js', function(req, res) {
+    res.sendFile(path.join(__dirname, "../views/cart/cart.js"));
+});
 router.route('/carts/items/:id').post(cartController.isloggedin,cartController.createCartController).put(cartController.updateCartController).delete(cartController.deleteCartController)
 router.get('/carts/items',cartController.getCartsController)
-
-
+router.post('/cart/checkout',cartController.isloggedin,cartController.checkOut)
+router.get('/finalOrder.html', function(req, res) {
+    res.sendFile(path.join(__dirname, "../views/cart/finalOrder.html"));   
+});
+router.get('/orders', orderController.getAllOrders);
 //images------------------------------------------------------------
 router.get('/premier-league', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/home/images/leagues/premier-league.png'));

@@ -12,6 +12,7 @@
     <script src="search.js"></script>
     <script src="nav.js"></script>
     <script src="footer.js"></script>
+    <script src="user.js"></script>
 </head>
 <body>
     <section id="nav-placeholder"></section>
@@ -99,9 +100,10 @@
                       quantity:quantity
                      },
               success:function(response){
+
               if(response.isloggedin===false)
                  window.location.href = '/login.html'
-                else
+              else
                  window.location.href = '/allKits.html' 
 
               }
@@ -110,5 +112,6 @@
         });
 
     </script>
+
 </body>
 </html>

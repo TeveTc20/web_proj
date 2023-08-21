@@ -11,6 +11,10 @@ const cartSchema = new Schema({
         ref: 'kits',
         required: true,
     },
+    kitDescription: {
+        type: String,
+        required: true
+    },
     size: {
         type: String,
         required: true,
@@ -25,6 +29,8 @@ const cartSchema = new Schema({
         type: Number,
         required: true,
     }
+
+
 });
 
-module.exports = mongoose.model('carts', cartSchema);
+module.exports = mongoose.model('carts', cartSchema);

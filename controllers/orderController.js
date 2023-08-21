@@ -14,12 +14,13 @@ const createOrder = async (req, res) => {
 
 const getOrders = async (req, res) => {
     try {
-        const orders = await orderService.getOrders(req.params.username);
+        const orders = await orderService.getOrders(req.session.username);
         res.json(orders);
     } catch (error) {
         res.status(500).json({ message: 'Failed to get orders', error });
     }
 };
+
 
 const getAllOrders = async (req, res) => {
     try {
@@ -33,5 +34,5 @@ const getAllOrders = async (req, res) => {
 module.exports = {
     createOrder,
     getOrders,
-    getAllOrders
+    getAllOrders
 };

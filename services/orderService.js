@@ -18,11 +18,11 @@ const orderService = {
     async getOrders(username) {
         return await Order.find({ username }).populate('carts');
     },
-
+    
     async getAllOrders() {
         return await Order.find().populate('carts');
     }
 
 };
 
-module.exports = orderService;
+module.exports = orderService;

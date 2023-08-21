@@ -14,6 +14,8 @@
     <script src="search.js"></script>
     <script src="nav.js"></script>
     <script src="footer.js"></script>
+    <script src="user.js"></script>
+   
     <style>
         .kit-card {
             width: calc(33.33% - 20px); /* Distribute kits in 3 columns with some spacing */
@@ -241,6 +243,7 @@
 
     <script>
         $(document).ready(function() {
+        
             // Fetch kits data from the server
             function fetchKits(url) {
                 return $.ajax({
@@ -258,9 +261,8 @@
                         var kitHtml = `
                             <div class="kit-card">
                                 <img src="${kit.image}" alt="${kit.team_name} - ${kit.type}">
-                                <p>League: ${kit.league}</p>
-                                <p>Team: ${kit.team_name}</p>
-                                <p>Type: ${kit.type}</p>
+                                <p> ${kit.description}</p>
+                                <p>Price: ${kit.price}</p>
                                 <a href="sKit.html?id=${kit._id}" class="btn btn-info">View Product</a>
                             </div>
                         `;
@@ -354,18 +356,8 @@
         
         });
         
-    
     </script>
-    <script>
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const error = urlParams.get('error');
-            
-            if (error && error === 'NoItemsInCart') {
-                // Display the error message. You can customize this part based on your design
-                alert('Please add items to your cart before checking out.');
-            }
-        }
-        </script>
+    
+    
 </body>
 </html>

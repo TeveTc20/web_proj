@@ -1,0 +1,135 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Football Matches Data</title>
+</head>
+<body>
+  <header>
+    <h1>Football Matches Data</h1>
+  </header>
+  <section id="data">
+    <article id="matches-info"></article>
+  </section>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const dataContainer = document.getElementById("matches-info");
+      const apiKey = "dce5527bee0947a78b5bb7242bfcac85";
+      const apiUrl = "https://localhost:8080/api.football-data.org/v4/matches";
+
+      fetch(apiUrl, {
+        headers: {
+          'Access-Control-Allow-Origin':'*',
+          'X-Auth-Token': apiKey
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.matches && data.matches.length > 0) {
+          let matchesHTML = "";
+
+          data.matches.forEach(match => {
+            const matchStatus = match.status;
+            const homeTeam = match.homeTeam.name;
+            const awayTeam = match.awayTeam.name;
+
+            matchesHTML += `<p>${homeTeam} vs ${awayTeam} - Status: ${matchStatus}</p>`;
+          });
+
+          dataContainer.innerHTML = matchesHTML;
+        } else {
+          dataContainer.innerHTML = "<p>No match data available.</p>";
+        }
+      })
+      .catch(error => {
+        dataContainer.innerHTML = "<p>Failed to fetch match information.</p>";
+        console.error(error);
+      });
+    });
+  </script>
+</body>
+</html> -->
+
+
+<!-- <!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Football Matches API</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h1>Football Matches</h1>
+<div id="matches"></div>
+
+<script>
+$(document).ready(function() {
+   
+    $.ajax({
+        url: "https://api.football-data.org/v4/matches",
+        type: "GET",
+        headers: {
+            'Access-Control-Allow-Origin' :"*",
+            "X-Auth-Token": "dce5527bee0947a78b5bb7242bfcac85"
+        },
+        success: function(data) {
+            // Process and display data
+            const matchesDiv = document.getElementById("matches");
+            const matches = data.matches;
+            if (matches && matches.length > 0) {
+                for (const match of matches) {
+                    const matchInfo = document.createElement("p");
+                    matchInfo.textContent = `Match: ${match.homeTeam.name} vs ${match.awayTeam.name}`;
+                    matchesDiv.appendChild(matchInfo);
+                }
+            } else {
+                const noMatchesInfo = document.createElement("p");
+                noMatchesInfo.textContent = "No matches found.";
+                matchesDiv.appendChild(noMatchesInfo);
+            }
+        },
+        error: function(error) {
+            console.error("Error fetching data:", error);
+        }
+    });
+});
+</script>
+</body>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Request Example</title>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch(' https://www.balldontlie.io/api/v1/games', {
+        method: 'GET',
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`API request failed with status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        const responseOutput = document.getElementById('responseOutput');
+        responseOutput.textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(error => {
+        console.error('Error making API request:', error);
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>API Request Example</h1>
+  <pre id="responseOutput"></pre>
+</body>
+</html> -->
+

@@ -6,6 +6,8 @@ const cartController=require('../controllers/cartController')
 const userController=require('../controllers/userController')
 const logInController=require('../controllers/logInController')
 const orderController=require('../controllers/orderController')
+const branchController=require('../controllers/branchController')
+
 
 // home-------------------------------------------------------
 router.get('/', function(req, res) {
@@ -26,21 +28,32 @@ router.get('/about.html', function(req, res) {
 router.get('/contact.html', function(req, res) {
     res.sendFile(path.join(__dirname, "../views/home/contact.html"));
 });
-router.get('/branches.html', function(req, res) {
-    res.sendFile(path.join(__dirname, "../views/home/branches.html"));
-});
 router.get('/home.css', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/home/home.css'));
 });
+router.route('/branches').get( function(req,res)  {
+    res.sendFile(path.join(__dirname,"../views/home/branches.html"))
+}).put(branchController.getBranches)
+
 router.get('/nav.js', (req, res) => {
     res.sendFile(path.join(__dirname, '../scripts/nav.js'));
 });
 router.get('/footer.js', (req, res) => {
     res.sendFile(path.join(__dirname, '../scripts/footer.js'));
 });
+router.post('/getKits', kitController.getKitsSearch);
+router.get('/search.js', (req, res) => {
+    res.sendFile(path.join(__dirname, '../scripts/search.js'));
+});
+router.get('/test.html', function(req, res) {
+    res.sendFile(path.join(__dirname, "../views/home/test.html"));
+});
 
+router.get('/api.js', (req, res) => {
+    res.sendFile(path.join(__dirname, '../scripts/api.js'));
+});
 
-//kits------------------------------------------------------------
+//kit------------------------------------------------------------
 router.get('/allKits.html', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/kit/allKits.html'));
 });
@@ -56,28 +69,32 @@ router.get('/kits/league/:league', kitController.getKitsByLeague);
 router.get('/kits/team_name/:team_name', kitController.getKitsByTeam);
 router.post('/kits/filter',kitController.filter)
 
-//Search----------------------------------------------------------
-router.post('/getKits', kitController.getKitsSearch);
-router.get('/search.js', (req, res) => {
-    res.sendFile(path.join(__dirname, '../scripts/search.js'));
-});
-
 //user------------------------------------------------------------
 router.route('/login.html').get(async(req, res) => {
     res.sendFile(path.join(__dirname, '../views/user/login.html'));
 }).post(logInController.loginUser)
-
 router.get('/login.css', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/user/login.css'));
 });
-
 router.route('/register.html').get(async(req, res) => {
     res.sendFile(path.join(__dirname, '../views/user/register.html'));
 }).post(logInController.registerUser);
-
 router.get('/register.css', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/user/register.css'));
 });
+router.get('/user.js', (req, res) => {
+    res.sendFile(path.join(__dirname, '../scripts/user.js'));
+});
+router.get('/check-login' , logInController.isloggedin)
+
+router.get('/myAccount.html', function(req, res) {
+    res.sendFile(path.join(__dirname, "../views/user/myAccount.html"));
+});
+router.get('/user/username',userController.getUserByUserName)
+router.get('/orders/username', orderController.getOrders)
+
+router.get('/logout', logInController.logout)
+
 
 //cart-----------------------------------------------------------------
 router.get('/cart.html', function(req, res) {
@@ -93,6 +110,8 @@ router.get('/finalOrder.html', function(req, res) {
     res.sendFile(path.join(__dirname, "../views/cart/finalOrder.html"));   
 });
 router.get('/orders', orderController.getAllOrders);
+
+
 //images------------------------------------------------------------
 router.get('/premier-league', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/home/images/leagues/premier-league.png'));

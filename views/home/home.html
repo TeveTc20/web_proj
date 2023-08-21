@@ -15,10 +15,10 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="home.css">
         <script src="search.js"></script>
-    <script src="nav.js"></script>
-    <script src="footer.js"></script>
-       
-
+        <script src="nav.js"></script>
+        <script src="footer.js"></script>
+        <script src="user.js"></script>
+    
     </head>
     <body>
 
@@ -128,35 +128,10 @@
             </div>
 
         </section>
+        
         <section id="footer-placeholder"></section>
-
-            <script>
-
-            $(document).ready(function() {
-            
-                
-                $('#userIcon').on('click', function(e)  {
-                    alert("1")
-                    
-                    $.ajax({
-                        url: '/check-login',
-                        method: 'GET',
-                        success: function(response) {
-                            if (response.isloggedin) {
-                                window.location.href = '/myAccount.html';
-                            } 
-                            else {
-                                window.location.href = '/login.html';
-                            }
-                        },
-                        error: function() {
-                            console.log('Error checking login status');
-                        }
-                    });
-                });
-            });
-            </script>
-
+       
+       
+     
     </body>
-
 </html>

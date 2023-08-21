@@ -129,8 +129,8 @@ const isloggedin=async(req,res,next)=>{
         totalPrice += cartItem.totalPrice
         totalQuantity += cartItem.quantity;
     }
-        const newOrder=await orderService.createOrder(user,array,totalQuantity,totalPrice)
-        await cartService.deleteAllUserCarts(user)
+        const newOrder=await orderService.createOrder(user.username,array,totalQuantity,totalPrice)
+        await cartService.deleteAllUserCarts(user.username)
         res.redirect('/finalOrder.html')
     }
 
@@ -143,5 +143,5 @@ module.exports = {
     deleteAllUserCartsController,
     isloggedin,
     getCartById,
-    checkOut
+    checkOut
 };

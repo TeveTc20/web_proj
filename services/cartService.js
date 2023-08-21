@@ -54,5 +54,5 @@ module.exports = {
     updateCart,
     deleteCart,
     deleteAllUserCarts,
-    getCartById
+    getCartById
 };

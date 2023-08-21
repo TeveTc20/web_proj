@@ -72,6 +72,7 @@
     <section id="myAccount">
     <div class="container">
         <h2 id="hello"></h2>
+    
         <div class="user-details">
             <h2>Your Details</h2>
             <div id="userContainer">
@@ -84,6 +85,7 @@
                 <!-- User orders will be inserted here using JavaScript -->
             </div>
         </div>
+        
     </div>
     </section>
 
@@ -92,12 +94,14 @@
 
     <script>
         $(document).ready(function() {
+
             $.ajax({
                 url:'/user/username',
                 method: 'GET',
                 dataType: 'json',
                 success: function(data) {
                     $('#hello').html(`Welcome ${data.username} !`);
+                    $('#hello').append('<a href="/logout">Logout</a>')
                     $('#userContainer').html(`Username: ${data.username} <br> Email: ${data.email}`);
                                              
                 },
@@ -106,23 +110,46 @@
                 }
             });
 
-           /* $.ajax({
+            $.ajax({
                 url:'/orders/username',
                 method: 'GET',
                 dataType: 'json',
                 success: function(data) {
+                    console.log(data)
                     // Assuming `data` is an array of orders
                     let ordersHtml = '';
                     data.forEach(order => {
-                        ordersHtml += `Created At: ${order.createdAt}<br>`;
+                        const createdAtFormatted = new Date(order.createdAt).toLocaleString();
+
+                        ordersHtml += `
+                            Username: ${order.username}<br>
+                            Created At: ${createdAtFormatted}<br>
+                            Total Quantity: ${order.totalQuantity}<br>
+                            Total Price: ${order.totalPrice}<br><br>
+                        `;
                     });
+                
                     $('#ordersContainer').html(ordersHtml);
                 },
                 error: function(error) {
                     console.error('Error fetching orders:', error);
                 }
             });
+            /*
+            $('#logoutButton').on('click', function() {
+                $.ajax({
+                    url: '/logout', 
+                    method: 'PUT', 
+                    success: function(response) {
+                        window.location.href = '/login.html'; 
+                    },
+                    error: function(error) {
+                        console.error('Error logging out:', error);
+                    }
+                });
+            });
             */
+            
         });
     </script>
 

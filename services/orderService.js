@@ -1,28 +1,28 @@
-const order = require('../models/orderModel')
+// services/orderService.js
 
-const createOrder = async (userId,carts,totalAmount,totalPrice,date) => {
-    const newOrder = new order(
-        {
-            userId:userId,
-            carts:carts,
-            totalQuantity:totalAmount,
-            totalPrice:totalPrice
+const Order = require('../models/orderModel');
+
+const orderService = {
+
+    async createOrder(username, carts, totalQuantity, totalPrice) {
+        const order = new Order({
+            username,
+            carts,
+            totalQuantity,
+            totalPrice,
         });
-    if (date)
-    newOrder.createdAt = date;
+        await order.save();
+        return order;
+    },
+
+    async getOrders(username) {
+        return await Order.find({ username }).populate('carts');
+    },
     
-    return await newOrder.save()
-}
+    async getAllOrders() {
+        return await Order.find().populate('carts');
+    }
 
-const getOrders = async(userId) =>{
-    return await order.find({userId})
-}
+};
 
-const getAllOrders=async()=>{
-    return await order.find({});
-}
-module.exports = {
-    createOrder,
-    getOrders,
-    getAllOrders
-}
+module.exports = orderService;

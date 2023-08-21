@@ -31,10 +31,16 @@ function isloggedin(req,res){
   else
   res.json({isloggedin:false})
 }
+function logout(req, res) {
+  req.session.destroy(() => {
+    res.redirect('/login.html');
+  });
+}
 
 
 module.exports = {
   loginUser,
   registerUser,
   isloggedin,
+  logout,
 };

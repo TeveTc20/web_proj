@@ -90,16 +90,26 @@ router.get('/check-login' , logInController.isloggedin)
 router.get('/myAccount.html', function(req, res) {
     res.sendFile(path.join(__dirname, "../views/user/myAccount.html"));
 });
-router.get('/user/:username',userController.getUserByUserName)
-router.get('/orders/:username', orderController.getOrders)
+router.get('/user/username',userController.getUserByUserName)
+router.get('/orders/username', orderController.getOrders)
+
+router.get('/logout', logInController.logout)
 
 
 //cart-----------------------------------------------------------------
 router.get('/cart.html', function(req, res) {
     res.sendFile(path.join(__dirname, "../views/cart/cart.html"));
 });
+router.get('/cart.js', function(req, res) {
+    res.sendFile(path.join(__dirname, "../views/cart/cart.js"));
+});
 router.route('/carts/items/:id').post(cartController.isloggedin,cartController.createCartController).put(cartController.updateCartController).delete(cartController.deleteCartController)
 router.get('/carts/items',cartController.getCartsController)
+router.post('/cart/checkout',cartController.isloggedin,cartController.checkOut)
+router.get('/finalOrder.html', function(req, res) {
+    res.sendFile(path.join(__dirname, "../views/cart/finalOrder.html"));   
+});
+router.get('/orders', orderController.getAllOrders);
 
 
 //images------------------------------------------------------------

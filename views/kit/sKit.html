@@ -100,9 +100,10 @@
                       quantity:quantity
                      },
               success:function(response){
+
               if(response.isloggedin===false)
                  window.location.href = '/login.html'
-                else
+              else
                  window.location.href = '/allKits.html' 
 
               }

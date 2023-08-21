@@ -45,8 +45,8 @@ router.post('/getKits', kitController.getKitsSearch);
 router.get('/search.js', (req, res) => {
     res.sendFile(path.join(__dirname, '../scripts/search.js'));
 });
-router.get('/test.html', function(req, res) {
-    res.sendFile(path.join(__dirname, "../views/home/test.html"));
+router.get('/matches.html', function(req, res) {
+    res.sendFile(path.join(__dirname, "../views/home/matches.html"));
 });
 
 router.get('/api.js', (req, res) => {

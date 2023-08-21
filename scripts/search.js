@@ -34,18 +34,12 @@ function sendData(e) {
             resultElement.textContent = item.value;
             resultElement.classList.add('search-result');
             resultElement.addEventListener('click', () => {
-                if (item.matchedField === 'team_name') {
-                    // Handle navigation to team page
-                    window.location.href = `team.html?team_name=${encodeURIComponent(item.value)}`;
-                } else if (item.matchedField === 'description') {
+                if (item.matchedField === 'description') {
                     // Handle navigation to specific item page
                     window.location.href = `sKit.html?id=${item.id}`;
                 } else if (item.matchedField === 'league') {
                     // Handle navigation to league page
                     window.location.href = `leagueKits.html?league=${item.league}`;
-                } else if (item.matchedField === 'combined') {
-                    // Handle navigation to specific item page (replace 'sKit.html' with actual item page)
-                    window.location.href = `sKit.html?id=${item.id}`;
                 }
             });
             searchResults.appendChild(resultElement);

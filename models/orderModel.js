@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-const User = require('./User');
 const Schema = mongoose.Schema;
-const CartItem = require('./CartItem');
 
 const orderSchema = new Schema({
   
@@ -14,8 +12,7 @@ const orderSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'carts',
         }
-      ]
-      ,
+      ],
     totalQuantity:{
         type:Number,
         required:true

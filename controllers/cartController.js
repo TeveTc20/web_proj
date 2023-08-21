@@ -85,8 +85,7 @@ const deleteAllUserCartsController = async (req, res) => {
 };
 const isloggedin=async(req,res,next)=>{
     if(req.session.username){
-        console.log("user is logged in");
-      return next()
+        return next();
     }
 
     else 

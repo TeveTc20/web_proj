@@ -7,16 +7,15 @@ const createUser = async (req, res) => {
 };
 
 const getUserByUserName = async (req, res) => {
-  const { username } = req.params;
-  if (!username) {
-    return res.status(400).json({ message: 'Username is required' });
-  }
+  const username = req.session.username; // Directly get the username from req.session
+
   const user = await userService.getUserByUserName(username);
   if (!user) {
     return res.status(404).json({ errors: ['User was not found'] });
   }
   res.json(user);
 };
+
 
 const getUsers = async (req, res) => {
   const users = await userService.getUsers();

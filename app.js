@@ -18,10 +18,10 @@ mongoose.connect(dbUrl,
 
 const app = express();
 
-
 app.set('view engine','ejs');
 app.use(cors())
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }));
+
 app.use(express.json());
 app.use(session({ secret: 'mySecretKey', resave: true, saveUninitialized: true }));
 app.use('/',kitRouter);
@@ -29,6 +29,6 @@ app.use(express.urlencoded({extended:false}))
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, "views")))
 
-// app.listen(8080)
+//  app.listen(8080)
 const http=require('http').Server(app)
 http.listen(8080)

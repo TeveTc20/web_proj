@@ -9,13 +9,27 @@
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- <link rel="stylesheet" href="login.css"> -->
+    
     <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="home.css">
     <script src="search.js"></script>
     <script src="nav.js"></script>
     <script src="footer.js"></script>
-
+    <script src="user.js"></script>
+    
+    <style>
+        /* Style the link to look like a button */
+        .button-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #fff; /* Choose your desired button color */
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <section id="nav-placeholder"></section>
@@ -32,12 +46,14 @@
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit">Login</button>
+            <a href="myAccount.html" class="button-link">Go To Your Account</a>
         </form>
 
         <h1>Not a member yet? <a href="register.html">CREATE ACCOUNT</a></h1>
     </div>
 </section>
     <section id="footer-placeholder"></section>
+
 </body>
 </html> 
 

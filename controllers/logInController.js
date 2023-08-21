@@ -25,8 +25,16 @@ const registerUser = async (req, res) => {
     return res.redirect('/');
  }
 };
+function isloggedin(req,res){
+  if(req.session.username)
+  res.json({isloggedin:true})
+  else
+  res.json({isloggedin:false})
+}
+
 
 module.exports = {
   loginUser,
   registerUser,
+  isloggedin,
 };

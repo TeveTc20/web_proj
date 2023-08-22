@@ -19,25 +19,34 @@ const getUserByUserName = async (req, res) => {
 
 const getUsers = async (req, res) => {
   const users = await userService.getUsers();
+
   res.json(users);
 };
 
-const updateUser = async (req, res) => {
-  const { current_username } = req.params;
-  const { username, email, password, userType } = req.body;
-  if (!current_username || !username || !email || !password || !userType) {
-    return res.status(400).json({ message: 'All fields are required' });
+const updateUser = async (req,res) => {
+  const User = await userService.updateUser(req.body.existingusername,req.body.username,req.body.email,req.body.password,req.body.userType);
+  if (!User)
+  return  res.redirect('/admin/updateUser?error=1')
+  else return res.redirect('/admin')
   }
 
-  const user = await userService.updateUser(current_username, username, email, password, userType);
-  if (!user) {
-    return res.status(404).json({ errors: ['User was not found'] });
-  }
-  res.json(user);
-};
+
+// const updateUser = async (req, res) => {
+//   //const { current_username } = req.body;
+//   const { current_username ,username, email, password, userType } = req.body;
+//   if (!current_username || !username || !email || !password || !userType) {
+//     return res.status(400).json({ message: 'All fields are required' });
+//   }
+
+//   const user = await userService.updateUser(current_username, username, email, password, userType);
+//   if (!user) {
+//     return res.status(404).json({ errors: ['User was not found'] });
+//   }
+//   res.json(user);
+// };
 
 const deleteUserByUserName = async (req, res) => {
-  const { username } = req.params;
+  const { username } = req.body;
   if (!username) {
     return res.status(400).json({ message: 'Username is required' });
   }
@@ -45,7 +54,8 @@ const deleteUserByUserName = async (req, res) => {
   if (!user) {
     return res.status(404).json({ errors: ['User was not found'] });
   }
-  res.send();
+  //res.send();
+  return res.redirect('/')
 };
 
 const createAdmin = async (req, res) => {

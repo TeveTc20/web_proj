@@ -18,9 +18,71 @@
         <script src="nav.js"></script>
         <script src="footer.js"></script>
         <script src="user.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+       
+
+    <style>
+        .popup {
+            z-index: 9999;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+          }
+          
+          .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          }
+          
+          .popup-message {
+            font-size: 18px;
+            margin-bottom: 20px;
+          }
+          
+          .popup-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+          }
+          .popup-close-button {
+            margin-right: 10px;
+            padding: 5px 10px;
+            background-color: #890404;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+          }
+          
+          
+    </style>
     
     </head>
     <body>
+
+        <div id="adPopup" class="popup">
+            <div class="popup-content">
+              <span class="popup-message">Have you checked our new Barcelona kit?</span>
+              <button id="adCloseButton" class="popup-close-button">Close</button>
+              <button id="adLinkButton" class="popup-button">Check it out</button>
+            </div>
+          </div>
 
         <section id="nav-placeholder"></section>
         
@@ -29,7 +91,7 @@
             <div class="container">
                 <h4>New On Our Website</h4>
                 <h1><span>Get Your Bra</span>nd New Kit!</h1>
-                <button onclick="window.location.href='allKits.html'">Shop Now</button>
+                <button onclick="window.location.href='allKits'">Shop Now</button>
 
             </div>
 
@@ -46,37 +108,37 @@
             <div class="row m-0 py-5">
 
                 <div class="col-lg-2 col-md-4 col-6 img-wrapper">
-                    <a href="leagueKits.html?league=Premier League">
+                    <a href="leagueKits?league=Premier League">
                     <img class="img-fluid" src="premier-league" alt="Error">
                     </a>
                 </div>
 
                 <div class="col-lg-2 col-md-4 col-6 img-wrapper">
-                    <a href="leagueKits.html?league=La Liga">
+                    <a href="leagueKits?league=La Liga">
                     <img class="img-fluid" src="la-liga" alt="Error">
                     </a>
                 </div>
 
                 <div class="col-lg-2 col-md-4 col-6 img-wrapper">
-                    <a href="leagueKits.html?league=Seria A">
+                    <a href="leagueKits?league=Seria A">
                     <img class="img-fluid" src="seriaa" alt="Error">
                     </a>
                 </div>
 
                 <div class="col-lg-2 col-md-4 col-6 img-wrapper">
-                    <a href="leagueKits.html?league=League 1">
+                    <a href="leagueKits?league=League 1">
                     <img class="img-fluid" src="ligue1" alt="Error">
                     </a>
                 </div>
 
                 <div class="col-lg-2 col-md-4 col-6 img-wrapper">
-                    <a href="leagueKits.html?league=Bundesliga">
+                    <a href="leagueKits?league=Bundesliga">
                     <img class="img-fluid" src="bundesliga" alt="Error">
                     </a>
                 </div>
 
                 <div class="col-lg-2 col-md-4 col-6 img-wrapper">
-                    <a href="leagueKits.html?league=International">
+                    <a href="leagueKits?league=International">
                     <img class="img-fluid" src="international" alt="Error">
                     </a>
                 </div>
@@ -105,7 +167,7 @@
                     <img class="img-fluid" src="barcelona" alt="Error">
                     <div class="details">
                         <h2>Barcelona</h2>
-                        <button onclick="window.location.href='sKit.html?id=64dbbef5ed2cfbb78bca952f'">Buy Now</button>
+                        <button onclick="window.location.href='sKit?id=64dbbef5ed2cfbb78bca952f'">Buy Now</button>
                     </div>
                 </div>
 
@@ -113,7 +175,7 @@
                     <img class="img-fluid" src="PSG" alt="Error">
                     <div class="details">
                         <h2>PSG</h2>
-                        <button onclick="window.location.href='sKit.html?id=64dbbef5ed2cfbb78bca9547'">Buy Now</button>
+                        <button onclick="window.location.href='sKit?id=64dbbef5ed2cfbb78bca9547'">Buy Now</button>
                     </div>
                 </div>
 
@@ -121,7 +183,7 @@
                     <img class="img-fluid" src="mancity" alt="Error">
                     <div class="details">
                         <h2>Man City</h2>
-                        <button onclick="window.location.href='sKit.html?id=64dbbef5ed2cfbb78bca9526'">Buy Now</button>
+                        <button onclick="window.location.href='sKit?id=64dbbef5ed2cfbb78bca9526'">Buy Now</button>
                     </div>
                 </div>
 
@@ -131,7 +193,7 @@
         
         <section id="footer-placeholder"></section>
        
-       
+        <script src="add.js"></script>
      
     </body>
 </html>

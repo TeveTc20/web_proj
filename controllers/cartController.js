@@ -22,7 +22,7 @@ const createCartController = async (req, res) => {
     else{
         const cart = await cartService.createCart(userName, kitId,description, size, quantity, price);      
     }
-    res.redirect('/allKits.html')
+    res.redirect('/allKits')
     } catch (error) {
         res.status(500).json({ errors: ['Failed to create cart'] });
     }
@@ -35,7 +35,7 @@ const createCartController = async (req, res) => {
 const getCartsController = async (req, res) => {
     try {
         const { username } = req.session;
-        console.log(username) // Assuming you are passing the username as a URL parameter
+       // Assuming you are passing the username as a URL parameter
         const carts = await cartService.getCartsByUsername(username);
         res.json(carts);
     } catch (error) {
@@ -112,7 +112,28 @@ const isloggedin=async(req,res,next)=>{
     }
     res.json(cart);
   };
-  const checkOut= async (req,res) =>{
+//   const checkOut= async (req,res) =>{
+//     //make an order and append it to the user's oredr history...
+//     const user= await userService.getUserByUserName(req.session.username)
+//     const cart=await cartService.getCartsByUsername(req.session.username)
+//     console.log(cart.length)
+//     if (cart.length===0) {
+//         console.log("went in")
+//         return res.status(400).json({ error: 'NoItemsInCart' }); // Redirecting to the products page with an error message
+//     }
+//     var array=[]
+//     var totalPrice=0
+//     var totalQuantity=0
+//     for (const cartItem of cart) {
+//         array.push(cartItem._id);
+//         totalPrice += cartItem.totalPrice
+//         totalQuantity += cartItem.quantity;
+//     }
+//         const newOrder=await orderService.createOrder(user.username,array,totalQuantity,totalPrice)
+//         await cartService.deleteAllUserCarts(user.username)
+//         res.redirect('/finalOrder.html')
+//     }
+const checkOut= async (req,res) =>{
     //make an order and append it to the user's oredr history...
     const user= await userService.getUserByUserName(req.session.username)
     const cart=await cartService.getCartsByUsername(req.session.username)
@@ -125,6 +146,7 @@ const isloggedin=async(req,res,next)=>{
     var totalPrice=0
     var totalQuantity=0
     for (const cartItem of cart) {
+        kitService.updateSalesCount(cartItem.kit,cartItem.quantity)
         array.push(cartItem._id);
         totalPrice += cartItem.totalPrice
         totalQuantity += cartItem.quantity;
@@ -132,7 +154,7 @@ const isloggedin=async(req,res,next)=>{
         const newOrder=await orderService.createOrder(user.username,array,totalQuantity,totalPrice)
         await cartService.deleteAllUserCarts(user.username)
         res.redirect('/finalOrder.html')
-    }
+    }
 
 module.exports = {
     createCartController,

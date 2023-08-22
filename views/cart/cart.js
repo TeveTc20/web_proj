@@ -37,26 +37,33 @@ $(document).ready(function() {
           var newQuantity = parseInt($(this).closest('tr').find('.quantity-input').val(), 10);
           var newSize = $(this).closest('tr').find('.size-selector').val();
           var oldSize = $(this).closest('tr').find('.size-selector').data('initial-size');
-          if (!isNaN(newQuantity)) {
-            // AJAX request to update cart item
-            $.ajax({
-              url: '/carts/items/' + productItemId,
-              method: 'PUT',
-              data: { kitId:productItemId,
-                    size:oldSize,
-                    newsize:newSize
-                    ,quantity: newQuantity},
-              success: function() {
-                console.log('Cart item updated successfully');
-                // Refresh the page to reflect the updated quantity
-                location.reload();
-              },
-              error: function() {
-                console.log('Error: Failed to update cart item');
-              }
-            });
+          
+          // Ensure the newQuantity is at least 1
+          if (isNaN(newQuantity) || newQuantity < 1) {
+            newQuantity = 1;
           }
-        });
+
+          // AJAX request to update cart item
+          $.ajax({
+            url: '/carts/items/' + productItemId,
+            method: 'PUT',
+            data: {
+              kitId: productItemId,
+              size: oldSize,
+              newsize: newSize,
+              quantity: newQuantity
+            },
+            success: function() {
+              console.log('Cart item updated successfully');
+              // Refresh the page to reflect the updated quantity
+              location.reload();
+            },
+            error: function() {
+              console.log('Error: Failed to update cart item');
+            }
+          });
+});
+
 
         $('.remove-btn').click(function() {
           var productItemId = $(this).data('cart-item');
@@ -84,13 +91,13 @@ $(document).ready(function() {
             method: 'POST',
             success: function(response) { 
              if(response.isloggedin===false)
-              window.location.href="/login.html"
+              window.location.href="/login"
             else window.location.href="/finalOrder.html"
             },
             error: function(jqXHR) {
               if(jqXHR.responseJSON && jqXHR.responseJSON.error === 'NoItemsInCart') {
                   // Redirect the user to the products page with an error query param
-                  window.location.href = "/allKits.html?error=NoItemsInCart";
+                  window.location.href = "/allKits?error=NoItemsInCart";
               } else {
                   console.log('Error: Checkout failed');
                   // Handle other potential errors here

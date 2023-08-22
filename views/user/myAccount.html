@@ -115,7 +115,7 @@
                 method: 'GET',
                 dataType: 'json',
                 success: function(data) {
-                    console.log(data)
+    
                     // Assuming `data` is an array of orders
                     let ordersHtml = '';
                     data.forEach(order => {
@@ -134,22 +134,7 @@
                 error: function(error) {
                     console.error('Error fetching orders:', error);
                 }
-            });
-            /*
-            $('#logoutButton').on('click', function() {
-                $.ajax({
-                    url: '/logout', 
-                    method: 'PUT', 
-                    success: function(response) {
-                        window.location.href = '/login.html'; 
-                    },
-                    error: function(error) {
-                        console.error('Error logging out:', error);
-                    }
-                });
-            });
-            */
-            
+            });   
         });
     </script>
 

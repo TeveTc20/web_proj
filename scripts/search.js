@@ -39,13 +39,13 @@ function sendData(e) {
                     window.location.href = `team.html?team_name=${encodeURIComponent(item.value)}`;
                 } else if (item.matchedField === 'description') {
                     // Handle navigation to specific item page
-                    window.location.href = `sKit.html?id=${item.id}`;
+                    window.location.href = `sKit?id=${item.id}`;
                 } else if (item.matchedField === 'league') {
                     // Handle navigation to league page
-                    window.location.href = `leagueKits.html?league=${item.league}`;
+                    window.location.href = `leagueKits?league=${item.league}`;
                 } else if (item.matchedField === 'combined') {
-                    // Handle navigation to specific item page (replace 'sKit.html' with actual item page)
-                    window.location.href = `sKit.html?id=${item.id}`;
+                    // Handle navigation to specific item page (replace 'sKit' with actual item page)
+                    window.location.href = `sKit?id=${item.id}`;
                 }
             });
             searchResults.appendChild(resultElement);

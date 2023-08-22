@@ -10,26 +10,18 @@ const branchController=require('../controllers/branchController')
 
 
 // home-------------------------------------------------------
+
 router.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, "../views/home/home.html"));
 });
-router.get('/home.html', function(req, res) {
+router.get('/home', function(req, res) {
     res.sendFile(path.join(__dirname, "../views/home/home.html"));
 });
-router.get('/nav.html', function(req, res) {
-    res.sendFile(path.join(__dirname, "../views/home/nav.html"));
-});
-router.get('/footer.html', function(req, res) {
-    res.sendFile(path.join(__dirname, "../views/home/footer.html"));
-});
-router.get('/about.html', function(req, res) {
+router.get('/about', function(req, res) {
     res.sendFile(path.join(__dirname, "../views/home/about.html"));
 });
-router.get('/contact.html', function(req, res) {
+router.get('/contact', function(req, res) {
     res.sendFile(path.join(__dirname, "../views/home/contact.html"));
-});
-router.get('/home.css', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/home/home.css'));
 });
 router.route('/branches').get( function(req,res)  {
     res.sendFile(path.join(__dirname,"../views/home/branches.html"))
@@ -41,26 +33,34 @@ router.get('/nav.js', (req, res) => {
 router.get('/footer.js', (req, res) => {
     res.sendFile(path.join(__dirname, '../scripts/footer.js'));
 });
-router.post('/getKits', kitController.getKitsSearch);
 router.get('/search.js', (req, res) => {
     res.sendFile(path.join(__dirname, '../scripts/search.js'));
 });
-router.get('/test.html', function(req, res) {
-    res.sendFile(path.join(__dirname, "../views/home/test.html"));
+router.get('/add.js', function(req, res) {
+    res.sendFile(path.join(__dirname, "../scripts/add.js"));
 });
-
-router.get('/api.js', (req, res) => {
-    res.sendFile(path.join(__dirname, '../scripts/api.js'));
+router.get('/matches', function(req, res) {
+    res.sendFile(path.join(__dirname, "../views/home/matches.html"));
+});
+router.get('/nav.html', function(req, res) {
+    res.sendFile(path.join(__dirname, "../views/home/nav.html"));
+});
+router.get('/footer.html', function(req, res) {
+    res.sendFile(path.join(__dirname, "../views/home/footer.html"));
+});
+router.get('/home.css', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/home/home.css'));
 });
 
 //kit------------------------------------------------------------
-router.get('/allKits.html', (req, res) => {
+router.post('/getKits', kitController.getKitsSearch);
+router.get('/allKits', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/kit/allKits.html'));
 });
-router.get('/sKit.html', (req, res) => {
+router.get('/sKit', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/kit/sKit.html'));
 });
-router.get('/leagueKits.html', (req, res) => {
+router.get('/leagueKits', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/kit/leagueKits.html'));
 });
 router.get('/kits', kitController.getKits);
@@ -70,13 +70,15 @@ router.get('/kits/team_name/:team_name', kitController.getKitsByTeam);
 router.post('/kits/filter',kitController.filter)
 
 //user------------------------------------------------------------
-router.route('/login.html').get(async(req, res) => {
+router.get('/users',userController.getUsers)
+
+router.route('/login').get(async(req, res) => {
     res.sendFile(path.join(__dirname, '../views/user/login.html'));
 }).post(logInController.loginUser)
 router.get('/login.css', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/user/login.css'));
 });
-router.route('/register.html').get(async(req, res) => {
+router.route('/register').get(async(req, res) => {
     res.sendFile(path.join(__dirname, '../views/user/register.html'));
 }).post(logInController.registerUser);
 router.get('/register.css', (req, res) => {
@@ -87,7 +89,7 @@ router.get('/user.js', (req, res) => {
 });
 router.get('/check-login' , logInController.isloggedin)
 
-router.get('/myAccount.html', function(req, res) {
+router.get('/myAccount', function(req, res) {
     res.sendFile(path.join(__dirname, "../views/user/myAccount.html"));
 });
 router.get('/user/username',userController.getUserByUserName)
@@ -96,8 +98,56 @@ router.get('/orders/username', orderController.getOrders)
 router.get('/logout', logInController.logout)
 
 
-//cart-----------------------------------------------------------------
-router.get('/cart.html', function(req, res) {
+
+//admin--------------------------------------------------------------------
+
+router.get('/admin', function(req, res) {
+    res.sendFile(path.join(__dirname, "../views/admin/admin.html"));
+});
+router.get('/admin.js', function(req, res) {
+    res.sendFile(path.join(__dirname, "../scripts/admin.js"));
+});
+router.route('/deleteUser').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/admin/deleteUser.html"))})
+.post(userController.deleteUserByUserName)
+router.route('/updateUser').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/admin/updateUser.html"))})
+.post(userController.updateUser)
+router.route('/createUser').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/admin/createUser.html"))})
+.post(userController.createUser)
+
+router.route('/createBranch').get(function(req,res) {
+    res.sendFile(path.join(__dirname,"../views/admin/createBranch.html"))})
+.post(branchController.createBranch)
+
+router.route('/deleteBranch').get(function(req,res) {
+    res.sendFile(path.join(__dirname,"../views/admin/deleteBranch.html"))})
+.post(branchController.deleteBranch)
+
+router.route('/updateBranch').get(function(req,res) {
+    res.sendFile(path.join(__dirname,"../views/admin/updateBranch.html"))})
+.post(branchController.updateBranch)
+
+router.route('/createKit').get(function(req,res) {
+    res.sendFile(path.join(__dirname,"../views/admin/createKit.html"))})
+.post(kitController.createKit)
+
+router.route('/deleteKit').get(function(req,res) {
+    res.sendFile(path.join(__dirname,"../views/admin/deleteKit.html"))})
+.post(kitController.deleteKit)
+
+router.route('/updateKit').get(function(req,res) {
+    res.sendFile(path.join(__dirname,"../views/admin/updateKit.html"))})
+.post(kitController.updateKit)
+router.get('/kits/topselling',kitController.getTopSellingKits)
+router.get('/sales-by-league',kitController.getSalesCountByLeague)
+
+router.get('/adminOnly.js', function(req, res) {
+    res.sendFile(path.join(__dirname, "../scripts/adminOnly.js"));
+});
+
+
+//cart/orders-----------------------------------------------------------------
+
+router.get('/cart', function(req, res) {
     res.sendFile(path.join(__dirname, "../views/cart/cart.html"));
 });
 router.get('/cart.js', function(req, res) {
@@ -113,6 +163,7 @@ router.get('/orders', orderController.getAllOrders);
 
 
 //images------------------------------------------------------------
+
 router.get('/premier-league', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/home/images/leagues/premier-league.png'));
 });

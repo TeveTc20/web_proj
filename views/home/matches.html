@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Page</title>
+  <title>Live Scores</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
       <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
@@ -19,7 +19,7 @@
   <style>
 
 
-/* Center-align the title */
+
 h1.mb-4 {
     text-align: center;
     font-size: 3rem;
@@ -71,11 +71,10 @@ h1.mb-4 {
 <body>
   <section id="nav-placeholder"></section>
 <div class="container">
-  <h1 class="mb-4">Football Matches Scores</h1>
+  <h1 class="mb-4">Live Scores</h1>
   <div id="scores"></div>
 </div>
 <section id="footer-placeholder"></section>
-<!-- Include jQuery and Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
@@ -86,7 +85,7 @@ h1.mb-4 {
     fetch(`http://site.api.espn.com/apis/site/v2/sports/soccer/${league}/scoreboard`)
       .then(response => response.json())
       .then(data => {
-        const leagueName = data.leagues[0].name; // Get the league name
+        const leagueName = data.leagues[0].name; 
 
         const events = data.events;
         events.forEach(event => {

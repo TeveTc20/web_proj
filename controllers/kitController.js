@@ -1,8 +1,19 @@
 const kitService = require('../services/kitService');
 const kitModel = require('../models/kitModel')
 
- 
- const getKitsSearch = async (req, res) => {
+const { postToFacebook } = require('../scripts/facebook');
+
+const createKit = async (req,res) => {
+  const newKit = await kitService.createkit(req.body.league,req.body.team_name,req.body.type,req.body.price,req.body.description,req.body.image);
+  if(newKit){
+    var message='Check out now our new :'+ newKit.description + ' kit!' ;
+    await postToFacebook(message)
+  return res.redirect('/admin')
+  }
+  else
+   return res.redirect('/createKit?error=1')
+}
+const getKitsSearch = async (req, res) => {
   // Inside your getKitsSearch function
 const payload = req.body.payload.trim();
 const terms = payload.split(/\s+/).map(term => `(?=.*${term})`).join('|');
@@ -37,18 +48,6 @@ searchDescription.forEach(item => addToResults(item, 'description'));
 res.send({ payload: transformedResults }); // Send the response once here
 
 }
-
-// const createKit = async (req, res) => {
-//   const { team_name, price, description, size, image, isAvailable } = req.body;
-//   const newkit = await kitService.createProduct(team_name, price, description, size, image, isAvailable);
-//   res.json(newkit);
-// };
-const createKit = async (req,res) => {
-  const newKit = await kitService.createkit(req.body.league,req.body.team_name,req.body.type,req.body.price,req.body.description,req.body.image);
-  if(newKit)
-  return res.redirect('/')
-  else return  res.redirect('/createKit?error=1')
-}
 const getKitById = async (req, res) => {
   const { id } = req.params;
   const kit = await kitService.getKitById(id)
@@ -57,7 +56,6 @@ const getKitById = async (req, res) => {
   }
   res.json(kit);
 };
-
 const getKitsByTeam = async (req, res) => {
   const { team_name } = req.params;
   const kits = await kitService.getKitByTeam(team_name);
@@ -68,61 +66,34 @@ const getKitByDescription = async (req, res) => {
   const kits = await kitService.getKitByDescription(description);
   res.json(kits);
 };
-
 const getKitsByLeague = async (req, res) => {
   const { league } = req.params;
   const kits = await kitService.getKitByLeague(league)
   res.json(kits);
 };
-
 const getKits = async (req, res) => {
   const kits = await kitService.getKits();
   res.json(kits);
 };
-
-// const updateKit = async (req, res) => {
-
-//   const { olddescription,description,league,team_name,type,price, image, isAvailable } = req.body;
-//   const kit = await kitService.updatekit(olddescription,description,league, team_name, type, price, image, isAvailable);
-//   if (!kit) {
-//     return res.status(404).json({ errors: ['kit was not found'] });
-//   }
-//   res.json(kit);
-// };
 const updateKit = async (req, res) => {
   const { existingName, newName,price,image} = req.body;
 
   const product = await kitService.updateKit(existingName, newName,price,image);
 
   if (!product) {
-    return res.redirect('/updateProduct?error=1');
+    return res.redirect('/updateKit?error=1');
   }
 
-  return res.redirect('/');
+  return res.redirect('/admin');
 };
-
-// const deleteKit = async (req, res) => {
-//   const { id } = req.params;
-//   const kit = await kitService.deletekit(id);
-//   if (!kit) {
-//     return res.status(404).json({ errors: ['kit was not found'] });
-//   }
-//   res.send();
-// };
 const deleteKit = async (req,res) => {
   const product = await kitService.deleteKit(req.body.description);
   if(product)
-    return res.redirect('/')
-    else return res.redirect('/deleteProduct?error=1');
+    return res.redirect('/admin')
+  else 
+    return res.redirect('/deleteKit?error=1');
     
 }
-// const updateSalesCount = async (req, res) => {
-//   const { id } = req.params;
-//   const { salesCount } = req.body;
-//   await kitService.updateSalesCount(id, salesCount);
-//   res.send();
-// };
-
 const searchKits = async (req, res) => {
   const { query } = req.params;
   const kits = await kitService.search(query);
@@ -131,12 +102,6 @@ const searchKits = async (req, res) => {
   }
   res.json(kits);
 };
-
-// const getTopSellingKits = async (req, res) => {
-//   const { limit } = req.params;
-//   const topSellingkits = await kitService.getTopSellingkits(parseInt(limit));
-//   res.json(topSellingkits);
-// };
 const filter=async(req,res)=>{
   const {league,team_name,type}=req.body
 
@@ -170,6 +135,8 @@ const updateSalesCount = async (req, res) => {
   res.send();
 };
 
+
+
 module.exports = {
   createKit,
   getKitsSearch,
@@ -186,4 +153,6 @@ module.exports = {
   getKitByDescription,
   getSalesCountByLeague,
   updateSalesCount,
+  
+  
 };

@@ -67,14 +67,14 @@ form button.btn-primary {
   <section id="nav-placeholder"></section>
   <main>
     <div class="container center-header">
-      <h1>Create Product</h1>
+      <h1>Create Kit</h1>
     </div>
 
     <form action="/createKit" method="POST">
     
         <label for="league1">League:</label>
         <select id="league1" name="league" required>
-          <option value="Preimer League">Preimer League</option>
+          <option value="Premier League">Preimer League</option>
           <option value="La Liga">La Liga</option>
           <option value="Bundesliga">Bundesliga</option>
           <option value="League 1">League 1</option>
@@ -112,17 +112,18 @@ form button.btn-primary {
         <option value="Training">Training</option>
       </select><br><br>
 
-      <label for="price1">Product Price:</label>
-      <input type="number" id="price1" name="price" required><br><br>
+      <label for="price1">Kit Price:</label>
+      <input type="number" id="price1" name="price" required min="1"><br><br>
 
-      <label for="description1">Product Description:</label>
+      <label for="description1">Kit Description:</label>
       <textarea id="description1" name="description" required></textarea><br><br>
 
-      <label for="image1">Product Image:</label>
+      <label for="image1">Kit Image:</label>
       <input type="text" id="image1" name="image" required><br><br>
 
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    
   </main>
 
   <section id="footer-placeholder"></section>
@@ -132,8 +133,9 @@ form button.btn-primary {
     const error = urlParams.get('error');
 
     if (error) {
-      alert('Invalid Product name!');
+      alert('Kit Description Already Exists!');
     }
+    
   </script>
 </body>
 </html>

@@ -5,7 +5,7 @@ const loginUser = async (req, res) => {
   const { username, password } = req.body;
   const user = await loginService.login(username, password);
   if (!user) {
-    return res.status(401).json({ message: 'Invalid username or password' });
+    return res.redirect('/login?error=1')
   }
   else{
         const x=await userService.getUserByUserName(username);
@@ -14,13 +14,12 @@ const loginUser = async (req, res) => {
        return res.redirect('/')
      }
 };
-
 const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
   const registrationSuccessful = await loginService.register(username, email, password);
   
   if (!registrationSuccessful) {
-    return res.status(409).json({ message: 'Username or Email already exists' });
+    return res.redirect('/register?error=1')
   }
  else{
     req.session.username = username;
@@ -28,8 +27,6 @@ const registerUser = async (req, res) => {
  }
 };
 function isloggedin(req,res){
-  console.log(req.session.username)
-  console.log(req.session.userType)
   if(req.session.username)
   res.json({
         isloggedin:true,
@@ -45,7 +42,6 @@ function logout(req, res) {
     res.redirect('/login');
   });
 }
-
 
 module.exports = {
   loginUser,

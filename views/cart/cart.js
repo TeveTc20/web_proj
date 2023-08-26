@@ -18,7 +18,7 @@ $(document).ready(function() {
             var row = '<tr>' +
                 '<td>' + cartItem.kitDescription + '</td>' +
                 '<td><select class="form-control size-selector" data-initial-size="' + cartItem.size + '">' + sizeOptions + '</select></td>' +
-                '<td><input type="number" class="form-control quantity-input" value="' + cartItem.quantity + '" data-cart-item="' + cartItem.productId + '"></td>' +
+                '<td><input type="number" class="form-control quantity-input" value="' + cartItem.quantity + '" data-cart-item="' + cartItem.productId + '" min="1" ></td>' +
                 '<td>' + cartItem.totalPrice + '</td>' +
                 '<td><button class="btn btn-primary update-btn" data-cart-item="' + cartItem.kit + '">Update</button></td>' +
                 '<td><button class="btn btn-danger remove-btn" data-cart-item="' + cartItem.kit + '">Remove</button></td>' +

@@ -1,6 +1,4 @@
-/* Your custom CSS styles for the login page */
 
-/* Form styling */
 #login {
     background-color: white;
     color: #1d1d1d;
@@ -60,7 +58,6 @@ button[type="submit"]:hover {
     color: white;
 }
 
-/* Additional styles for the "CREATE ACCOUNT" link */
 #login p {
     margin-top: 15px;
     font-size: 0.8rem;

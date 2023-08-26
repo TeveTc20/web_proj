@@ -3,9 +3,14 @@ const userService = require('../services/userService');
 const createUser = async (req, res) => {
   const { username, email, password, userType } = req.body;
   const newUser = await userService.createUser(username, email, password, userType);
-  res.json(newUser);
+  if(newUser){
+    return res.redirect('/admin')
+  }
+  else{
+    return  res.redirect('/createUser?error=1')
+  }
+  
 };
-
 const getUserByUserName = async (req, res) => {
   const username = req.session.username; // Directly get the username from req.session
 
@@ -15,49 +20,32 @@ const getUserByUserName = async (req, res) => {
   }
   res.json(user);
 };
-
-
 const getUsers = async (req, res) => {
   const users = await userService.getUsers();
 
   res.json(users);
 };
-
 const updateUser = async (req,res) => {
   const User = await userService.updateUser(req.body.existingusername,req.body.username,req.body.email,req.body.password,req.body.userType);
   if (!User)
-  return  res.redirect('/admin/updateUser?error=1')
-  else return res.redirect('/admin')
-  }
-
-
-// const updateUser = async (req, res) => {
-//   //const { current_username } = req.body;
-//   const { current_username ,username, email, password, userType } = req.body;
-//   if (!current_username || !username || !email || !password || !userType) {
-//     return res.status(400).json({ message: 'All fields are required' });
-//   }
-
-//   const user = await userService.updateUser(current_username, username, email, password, userType);
-//   if (!user) {
-//     return res.status(404).json({ errors: ['User was not found'] });
-//   }
-//   res.json(user);
-// };
-
+  return  res.redirect('/updateUser?error=1')
+  else 
+  return res.redirect('/admin')
+}
 const deleteUserByUserName = async (req, res) => {
   const { username } = req.body;
   if (!username) {
     return res.status(400).json({ message: 'Username is required' });
   }
   const user = await userService.deleteUserByUserName(username);
-  if (!user) {
-    return res.status(404).json({ errors: ['User was not found'] });
+  if(!user){
+    return res.redirect('/deleteUser?error=1')
   }
+  // if (!user) {
+  //   return res.status(404).json({ errors: ['User was not found'] });
   //res.send();
-  return res.redirect('/')
+  return res.redirect('/admin')
 };
-
 const createAdmin = async (req, res) => {
   const { username, email, password } = req.body;
   // Check if an admin with the same email already exists

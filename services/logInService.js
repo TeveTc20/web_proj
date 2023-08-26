@@ -11,9 +11,10 @@ async function register(username,email,password) {
     if(existUser){
         return false;
     }
-    await userService.createUser(username,email,password)    
-        return true
+    return await userService.createUser(username,email,password)   
 }
 
-
-module.exports = { login, register }
+module.exports = 
+{ login,
+  register
+}

@@ -9,6 +9,7 @@ const orderController=require('../controllers/orderController')
 const branchController=require('../controllers/branchController')
 
 
+
 // home-------------------------------------------------------
 
 router.get('/', function(req, res) {
@@ -38,6 +39,9 @@ router.get('/search.js', (req, res) => {
 });
 router.get('/add.js', function(req, res) {
     res.sendFile(path.join(__dirname, "../scripts/add.js"));
+});
+router.get('/facebook', function(req, res) {
+    res.sendFile(path.join(__dirname, "../scripts/facebook.js"));
 });
 router.get('/matches', function(req, res) {
     res.sendFile(path.join(__dirname, "../views/home/matches.html"));

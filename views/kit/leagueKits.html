@@ -18,35 +18,122 @@
     
     <style>
         .kit-card {
-            width: calc(33.33% - 20px); /* Distribute kits in 3 columns with some spacing */
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin: 10px; /* Adjust margin for spacing */
-            display: inline-block;
-            vertical-align: top;
-            box-sizing: border-box; /* Include padding and border in the width calculation */
+    width: calc(33.33% - 20px); /* Distribute kits in 3 columns with some spacing */
+    padding: 15px;
+    margin: 10px; /* Adjust margin for spacing */
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box; /* Include padding and border in the width calculation */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .kit-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .kit-card p {
+        margin-bottom: 5px;
+        color: #777;
+    }
+
+    .kit-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        transition: transform 0.2s ease, border 0.2s ease;
+    }
+
+    .kit-card img:hover {
+        transform: scale(1.05);
+    }
+
+    .kit-card h2 {
+        font-size: 18px;
+        margin: 10px 0;
+        font-weight: bold;
+    }
+
+    .kit-card h3 {
+        font-size: 16px;
+        margin: 5px 0;
+        color: #555;
+        font-weight: normal;
+    }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
         }
-          
-          .kit-card p {
-            margin-bottom: 1px;
-          }
-          
-          .kit-card img {
-            width: 100%;
-            height: 160px;
-            border-radius: 5px;
-          }
-          
-          .kit-card h2 {
-            font-size: 7mm;
-            margin: 5px 0;
-          }
-          
-          .kit-card h3 {
-            margin: 10px 0;
-          }
-          .filter-checkboxes label {
+        h2{
+   color: #A50044
+}
+h5{
+    color: #A50044
+}
+
+        /* Filter section styling */
+        .filter-section {
+            background-color: #f2f2f2;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .filter-section h2 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .filter-section h5 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Custom checkbox styling */
+        .form-check-input {
+            display: none;
+        }
+
+        .form-check-label {
+            position: relative;
+            padding-left: 35px;
+            cursor: pointer;
+            font-size: 18px;
             display: block;
+            margin-bottom: 10px;
+        }
+
+        .form-check-label::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 26px;
+            height: 26px;
+            border: 2px solid #aaa;
+            border-radius: 6px;
+            background-color: #fff;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-check-input:checked + .form-check-label::before {
+            background-color: #3498db; /* Checked checkbox background color */
+        }
+
+        .form-check-label:hover::before {
+            background-color: #3498db; /* Hovered checkbox background color */
         }
     </style>
 </head>

@@ -45,8 +45,10 @@ res.send({ payload: transformedResults }); // Send the response once here
 // };
 const createKit = async (req,res) => {
   const newKit = await kitService.createkit(req.body.league,req.body.team_name,req.body.type,req.body.price,req.body.description,req.body.image);
-  if(newKit)
-  return res.redirect('/')
+  if(newProduct){
+    var message='Check out now our new product:'+name
+    await postToFacebook(message)
+    return res.redirect('/')}
   else return  res.redirect('/createKit?error=1')
 }
 const getKitById = async (req, res) => {
@@ -166,9 +168,39 @@ const getTopSellingKits = async (req, res) => {
 const updateSalesCount = async (req, res) => {
   const { id } = req.params;
   const { salesCount } = req.body;
-  await kitService.updateSalesCount(id, salesCount);
+  await kitServfice.updateSalesCount(id, salesCount);
   res.send();
 };
+
+const postToFacebook=async(postMessage)=> {
+  const API_BASE = 'https://graph.facebook.com/v15.0';
+  const userToken = ""
+  
+  const pageResp = await fetch(`${API_BASE}/me/accounts?access_token=${userToken}`);
+  
+  const pages = await pageResp.json();
+  
+  const page = pages.data[0]
+  const pageToken = page.access_token;
+  const pageId = page.id;
+  
+  const fbPostObj = {
+        message: postMessage,
+        
+  };
+  
+  const postResp = await fetch(`${API_BASE}/${pageId}/feed?access_token=${pageToken}`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(fbPostObj)
+  });
+  
+  const post = await postResp.json();
+  console.log(post)
+  
+  }
 
 module.exports = {
   createKit,
@@ -186,4 +218,5 @@ module.exports = {
   getKitByDescription,
   getSalesCountByLeague,
   updateSalesCount,
+  postToFacebook,
 };

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Home</title>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="home.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <script src="search.js"></script>
+        <script src="nav.js"></script>
+        <script src="footer.js"></script>
+        <script src="user.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+      
+       
+       
+
+    <style>
+        .popup {
+            z-index: 9999;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+          }
+          
+          .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          }
+          
+          .popup-message {
+            font-size: 18px;
+            margin-bottom: 20px;
+          }
+          
+          .popup-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+          }
+          .popup-close-button {
+            margin-right: 10px;
+            padding: 5px 10px;
+            background-color: #890404;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+          }
+          
+          
+    </style>
+    
+    </head>
+    <body>
+
+        <div id="adPopup" class="popup">
+            <div class="popup-content">
+              <span class="popup-message">Have you checked our new Barcelona kit?</span>
+              <button id="adCloseButton" class="popup-close-button">Close</button>
+              <button id="adLinkButton" class="popup-button">Check it out</button>
+            </div>
+          </div>
+
+        <section id="nav-placeholder"></section>
+        
+        <section id="home">
+
+            <div class="container">
+                <h4>New On Our Website</h4>
+                <h1><span>Get Your Bra</span>nd New Kit!</h1>
+                <button onclick="window.location.href='allKits'">Shop Now</button>
+
+            </div>
+
+        </section>
+
+      
+        <section id="leagues" class="container">
+
+            <div class="container text-center mt-5 py-5 ">
+                <h3>Cheack Your Favorite League Kits </h3>
+                <hr>
+            </div>
+
+            <div class="row m-0 py-5">
+
+                <div class="col-lg-2 col-md-4 col-6 img-wrapper">
+                    <a href="leagueKits?league=Premier League">
+                    <img class="img-fluid" src="premier-league" alt="Error">
+                    </a>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6 img-wrapper">
+                    <a href="leagueKits?league=La Liga">
+                    <img class="img-fluid" src="la-liga" alt="Error">
+                    </a>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6 img-wrapper">
+                    <a href="leagueKits?league=Seria A">
+                    <img class="img-fluid" src="seriaa" alt="Error">
+                    </a>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6 img-wrapper">
+                    <a href="leagueKits?league=League 1">
+                    <img class="img-fluid" src="ligue1" alt="Error">
+                    </a>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6 img-wrapper">
+                    <a href="leagueKits?league=Bundesliga">
+                    <img class="img-fluid" src="bundesliga" alt="Error">
+                    </a>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6 img-wrapper">
+                    <a href="leagueKits?league=International">
+                    <img class="img-fluid" src="international" alt="Error">
+                    </a>
+                </div>
+            
+
+            </div>
+
+        </section>
+          
+
+        <section id="cards" class="w-100">
+
+            <div class="container text-center mt-5 py-5 ">
+                <h3>Our Featured</h3>
+                <hr>
+                <p>Here You Can Cheack Out Some of Our Newest Products</p>
+            </div>
+
+            <div class="row">
+                <div class="pruduct"></div>
+            </div>
+
+            <div class="row p-0 m-0">
+
+                <div class="one col-lg-4 col-md-12 col-12 p-0">
+                    <img class="img-fluid" src="barcelona" alt="Error">
+                    <div class="details">
+                        <h2>Barcelona</h2>
+                        <button onclick="window.location.href='sKit?id=64dbbef5ed2cfbb78bca952f'">Buy Now</button>
+                    </div>
+                </div>
+
+                <div class="one col-lg-4 col-md-12 col-12 p-0">
+                    <img class="img-fluid" src="PSG" alt="Error">
+                    <div class="details">
+                        <h2>PSG</h2>
+                        <button onclick="window.location.href='sKit?id=64dbbef5ed2cfbb78bca9547'">Buy Now</button>
+                    </div>
+                </div>
+
+                <div class="one col-lg-4 col-md-12 col-12 p-0">
+                    <img class="img-fluid" src="mancity" alt="Error">
+                    <div class="details">
+                        <h2>Man City</h2>
+                        <button onclick="window.location.href='sKit?id=64dbbef5ed2cfbb78bca9526'">Buy Now</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+        
+        <section id="footer-placeholder"></section>
+       
+        <script src="add.js"></script>
+       
+     
+    </body>
+</html>

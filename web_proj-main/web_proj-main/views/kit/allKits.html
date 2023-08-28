@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Kits</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="home.css">
+    <script src="search.js"></script>
+    <script src="nav.js"></script>
+    <script src="footer.js"></script>
+    <script src="user.js"></script>
+   
+    <style>
+        .kit-card {
+    width: calc(33.33% - 20px); /* Distribute kits in 3 columns with some spacing */
+    padding: 15px;
+    margin: 10px; /* Adjust margin for spacing */
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box; /* Include padding and border in the width calculation */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kit-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.kit-card p {
+    margin-bottom: 5px;
+    color: #777;
+}
+
+.kit-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.2s ease, border 0.2s ease;
+}
+
+.kit-card img:hover {
+    transform: scale(1.05);
+}
+
+.kit-card h2 {
+    font-size: 18px;
+    margin: 10px 0;
+    font-weight: bold;
+}
+h2{
+   color: #A50044
+}
+h5{
+    color: #A50044
+}
+.kit-card h3 {
+    font-size: 16px;
+    margin: 5px 0;
+    color: #555;
+    font-weight: normal;
+}
+          .filter-checkboxes label {
+            display: block;
+        }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        /* Filter section styling */
+        .filter-section {
+            background-color: #f2f2f2;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .filter-section h2 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .filter-section h5 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Custom checkbox styling */
+        .form-check-input {
+            display: none;
+        }
+
+        .form-check-label {
+            position: relative;
+            padding-left: 35px;
+            cursor: pointer;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .form-check-label::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 26px;
+            height: 26px;
+            border: 2px solid #aaa;
+            border-radius: 6px;
+            background-color: #fff;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-check-input:checked + .form-check-label::before {
+            background-color: #3498db; /* Checked checkbox background color */
+        }
+
+        .form-check-label:hover::before {
+            background-color: #3498db; /* Hovered checkbox background color */
+        }
+        
+    </style>
+</head>
+<body>
+    <section id="nav-placeholder"></section>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 filter-section">
+                <h2>all Kits</h2>
+                <h5>Leagues</h5>
+                <div class="form-check">
+                    <input class="form-check-input league-checkbox" type="checkbox" id="leaguePremierLeague" name="league" value="Premier League">
+                    <label class="form-check-label" for="leaguePremierLeague">
+                        Premier League
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input league-checkbox" type="checkbox" id="leagueLaLiga" name="league" value="La Liga">
+                    <label class="form-check-label" for="leagueLaLiga">
+                        La Liga
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input league-checkbox" type="checkbox" id="leagueSeriaA" name="league" value="Seria A">
+                    <label class="form-check-label" for="leagueSeriaA">
+                        Seria A
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input league-checkbox" type="checkbox" id="leagueLeague1" name="league" value="League 1">
+                    <label class="form-check-label" for="leagueLeague1">
+                        League 1
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input league-checkbox" type="checkbox" id="leagueBundesliga" name="league" value="Bundesliga">
+                    <label class="form-check-label" for="leagueBundesliga">
+                        Bundesliga
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input league-checkbox" type="checkbox" id="leagueInternational" name="league" value="International">
+                    <label class="form-check-label" for="leagueInternational">
+                        International
+                    </label>
+                </div>
+                <hr>
+                <h5>Teams</h5>
+                <div class="form-check">
+                    <input class="form-check-input team-checkbox" type="checkbox" id="teamArsenal" name="team" value="Arsenal">
+                    <label class="form-check-label" for="teamArsenal">
+                        Arsenal
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input team-checkbox" type="checkbox" id="teamChelsea" name="team" value="Chelsea">
+                    <label class="form-check-label" for="teamChelsea">
+                        Chelsea
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input team-checkbox" type="checkbox" id="teamLiverpool" name="team" value="Liverpool">
+                    <label class="form-check-label" for="teamLiverpool">
+                        Liverpool
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input team-checkbox" type="checkbox" id="teamManCity" name="team" value="Manchester City">
+                    <label class="form-check-label" for="teamManCity">
+                        Manchester City
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input team-checkbox" type="checkbox" id="teamManUnited" name="team" value="Manchester United">
+                    <label class="form-check-label" for="teamManUnited">
+                        Manchester United
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input team-checkbox" type="checkbox" id="teamSpurs" name="team" value="Tottenham Hotspur">
+                    <label class="form-check-label" for="teamSpurs">
+                        Tottenham Hotspur
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input team-checkbox" type="checkbox" id="teamBarcelona" name="team" value="Barcelona">
+                    <label class="form-check-label" for="teamBarcelona">
+                        Barcelona
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input team-checkbox" type="checkbox" id="teamAtletico" name="team" value="Atletico Madrid">
+                    <label class="form-check-label" for="teamAtletico">
+                        Atletico Madrid
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input team-checkbox" type="checkbox" id="teamRealMadrid" name="team" value="Real Madrid">
+                    <label class="form-check-label" for="teamRealMadrid">
+                        Real Madrid
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input team-checkbox" type="checkbox" id="teamInterMilan" name="team" value="Inter Milan">
+                    <label class="form-check-label" for="teamInterMilan">
+                        AC Milan
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input team-checkbox" type="checkbox" id="teamInterMilan" name="team" value="Inter Milan">
+                    <label class="form-check-label" for="teamInterMilan">
+                        Inter Milan
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input team-checkbox" type="checkbox" id="teamJuventus" name="team" value="Juventus">
+                    <label class="form-check-label" for="teamJuventus">
+                        Juventus
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input team-checkbox" type="checkbox" id="teamBayern" name="team" value="Bayern Munich">
+                    <label class="form-check-label" for="teamBayern">
+                        Bayern Munich
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input team-checkbox" type="checkbox" id="teamDortmund" name="team" value="Borussia Dortmund">
+                    <label class="form-check-label" for="teamDortmund">
+                        Borussia Dortmund
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input team-checkbox" type="checkbox" id="teamPSG" name="team" value="Paris Saint-Germain">
+                    <label class="form-check-label" for="teamPSG">
+                        Paris Saint-Germain
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input team-checkbox" type="checkbox" id="teamPortugal" name="team" value="Portugal">
+                    <label class="form-check-label" for="teamPortugal">
+                        Portugal
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input team-checkbox" type="checkbox" id="teamBrazil" name="team" value="Brazil">
+                    <label class="form-check-label" for="teamBrazil">
+                        Brazil
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input team-checkbox" type="checkbox" id="teamSpain" name="team" value="Spain">
+                    <label class="form-check-label" for="teamSpain">
+                        Spain
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input team-checkbox" type="checkbox" id="teamArgentina" name="team" value="Argentina">
+                    <label class="form-check-label" for="teamArgentina">
+                        Argentina
+                    </label>
+                </div>
+                <hr>
+                <h5>Type</h5>
+                <div class="form-check">
+                    <input class="form-check-input type-checkbox" type="checkbox" id="typeHome" name="type" value="Home">
+                    <label class="form-check-label" for="typeHome">
+                        Home
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input type-checkbox" type="checkbox" id="typeAway" name="type" value="Away">
+                    <label class="form-check-label" for="typeAway">
+                        Away
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input type-checkbox" type="checkbox" id="typeTraining" name="type" value="Training">
+                    <label class="form-check-label" for="typeTraining">
+                        Training
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="p-3 bg-white">
+                    <div class="row" id="kit-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="footer-placeholder"></section>
+
+    <script>
+        $(document).ready(function() {
+        
+            // Fetch kits data from the server
+            function fetchKits(url) {
+                return $.ajax({
+                    type: 'GET',
+                    url: url
+                });
+            }
+        
+            // Display kits on the page
+            function displayKits(kits) {
+                $('#kit-list').empty();
+        
+                if (kits.length > 0) {
+                    kits.forEach(function(kit) {
+                        var kitHtml = `
+                            <div class="kit-card">
+                                <img src="${kit.image}" alt="${kit.team_name} - ${kit.type}">
+                                <p> ${kit.description}</p>
+                                <p>Price: ${kit.price}</p>
+                                <a href="sKit?id=${kit._id}" class="btn btn-info">View Product</a>
+                            </div>
+                        `;
+                        $('#kit-list').append(kitHtml);
+                    });
+                } else {
+                    var noResultsElement = $('<div>').text('No kits found.');
+                    $('#kit-list').append(noResultsElement);
+                }
+            }
+        
+            // Apply filter logic
+            function applyFilters(kits) {
+                var selectedLeagues = [];
+                var selectedTeams = [];
+                var selectedTypes = [];
+        
+                $('.league-checkbox:checked').each(function() {
+                    selectedLeagues.push($(this).val());
+                });
+        
+                $('.team-checkbox:checked').each(function() {
+                    selectedTeams.push($(this).val());
+                });
+        
+                $('.type-checkbox:checked').each(function() {
+                    selectedTypes.push($(this).val());
+                });
+        
+                /*var filteredKits = kits.filter(function(kit) {
+                    
+                    var leagueMatch = selectedLeagues.includes(kit.league);
+                    var teamMatch = selectedTeams.includes(kit.team_name);
+                    var typeMatch =  selectedTypes.includes(kit.type);
+        
+                    return leagueMatch || teamMatch || typeMatch;
+                });
+                */
+
+                var filteredKits = kits.filter(function(kit) {
+                    
+                    var leagueMatch = selectedLeagues.includes(kit.league);
+                    var teamMatch = selectedTeams.includes(kit.team_name);
+                    var typeMatch = selectedTypes.length === 0 || selectedTypes.includes(kit.type);
+        
+                    return (leagueMatch || teamMatch) && typeMatch;
+                });
+                
+        
+                if (selectedLeagues.length === 0 && selectedTeams.length === 0 && selectedTypes.length === 0) {
+                    displayKits(kits);
+                } 
+                else {
+                    displayKits(filteredKits);
+                }
+
+            }
+        
+            // Fetch initial kits data and apply filters on page load
+            var queryString = window.location.search;
+            var urlParams = new URLSearchParams(queryString);
+            var league = urlParams.get('league'); 
+            var team_name = urlParams.get('team_name');
+            var type = urlParams.get('type');
+        
+            var url = '/kits'; // Default URL
+        
+            if (league) {
+                url = '/kits/league/' + encodeURIComponent(league);
+            }
+        
+            if (team_name) {
+                url = '/kits/team_Name/' + encodeURIComponent(team_name); 
+            }
+        
+            if (type) {
+                url = '/kits/type/' + encodeURIComponent(type);
+               
+            }
+        
+            fetchKits(url).done(function(kits) {
+                applyFilters(kits); // Apply initial filters
+            });
+        
+            // Attach event listeners to filter checkboxes
+            $('.league-checkbox, .team-checkbox, .type-checkbox').change(function() {
+                fetchKits(url).done(function(kits) {
+                    applyFilters(kits); // Apply filters on checkbox change
+                });
+            });
+        
+        });
+        
+    </script>
+    
+    
+</body>
+</html>

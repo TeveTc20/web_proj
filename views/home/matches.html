@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Scores</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="home.css">
+  <script src="search.js"></script>
+  <script src="nav.js"></script>
+  <script src="footer.js"></script>
+  <script src="user.js"></script>
+  <style>
+
+
+
+h1.mb-4 {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #A50044;
+    margin: 20px 0;
+}
+
+/* Match score styling */
+.score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.league-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.teams {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.scores {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.status {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.date {
+    font-size: 14px;
+    color: #888;
+}
+  </style>
+</head>
+<body>
+  <section id="nav-placeholder"></section>
+<div class="container">
+  <h1 class="mb-4">Live Scores</h1>
+  <div id="scores"></div>
+</div>
+<section id="footer-placeholder"></section>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  const scoresContainer = document.getElementById('scores');
+  const leagues = ['eng.1','eng.2', 'eng.3','esp.1','esp.2', 'ger.1','ger.2', 'fra.1', 'por.1', 'ned.1', 'isl.1', 'usa.1', 'sui.1', 'aut.1', 'bel.1', 'sau.1'];
+
+  leagues.forEach(league => {
+    fetch(`http://site.api.espn.com/apis/site/v2/sports/soccer/${league}/scoreboard`)
+      .then(response => response.json())
+      .then(data => {
+        const leagueName = data.leagues[0].name; 
+
+        const events = data.events;
+        events.forEach(event => {
+          const competition = event.competitions[0];
+          const status = event.status.type.shortDetail;
+          const matchDate = new Date(event.date);
+
+          const homeTeam = competition.competitors[0].team.displayName;
+          const awayTeam = competition.competitors[1].team.displayName;
+          const homeScore = competition.competitors[0].score;
+          const awayScore = competition.competitors[1].score;
+
+          const scoreElement = document.createElement('div');
+          scoreElement.classList.add('score');
+          scoreElement.innerHTML = `
+            <div class="league-name">${leagueName}</div>
+            <div class="teams">
+              <span>${homeTeam} ${homeScore} - ${awayScore} ${awayTeam}</span>
+            </div>
+            <div class="scores">${status}</div>
+            <div class="date">${matchDate.toLocaleString()}</div>
+          `;
+
+          scoresContainer.appendChild(scoreElement);
+        });
+      })
+      .catch(error => {
+        console.error(`Error fetching data for ${league}:`, error);
+      });
+  });
+</script>
+</body>
+</html>

@@ -58,23 +58,39 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     d3.json('/sales-by-league').then(data => {
-        let maxSales = d3.max(data, d => d.totalSales);
-        let container = d3.select("#sales-by-league-data");
+        let labels = data.map(item => item._id); // Assuming _id is the league name or identifier
+        let salesData = data.map(item => item.totalSales);
     
-        data.forEach(item => {
-            let widthPercentage = (item.totalSales / maxSales) * 100;
-            
-            let div = container.append('div').attr('class', 'mb-3');
-            div.append('span').text(`${item._id} - ${item.totalSales} Sales`);
-            
-            let progressBar = div.append('div').attr('class', 'progress');
-            progressBar.append('div')
-                       .attr('class', 'progress-bar')
-                       .style('width', `${widthPercentage}%`);
+        const ctx = document.getElementById('salesByLeagueChart').getContext('2d');
+    
+        const pieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: salesData,
+                    backgroundColor: [  // Add as many colors as you expect the maximum number of leagues can be.
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(255, 159, 64, 0.6)',
+                        // ... add more colors if you expect more leagues.
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'right'
+                }
+            }
         });
     }).catch(error => {
         console.log('Error: Failed to fetch sales by league', error);
     });
+    
     
 
     

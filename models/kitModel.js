@@ -33,7 +33,7 @@ image: {
   },
   isAvailable: {
     type: Boolean,
-    default: true, // Assuming the kit is available by default
+    default: true, 
   },
 
 });

@@ -7,13 +7,12 @@ const orderSchema = new Schema({
         type: String,
         required: true,
     },
-      carts: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'carts',
-        }
-      ]
-      ,
+    carts: [
+    {
+        type: Schema.Types.ObjectId,
+         ref: 'carts',
+    }
+    ],
     totalQuantity:{
         type:Number,
         required:true
@@ -26,6 +25,7 @@ const orderSchema = new Schema({
         type: Date,
         default:new Date()
     }
+    
     
 });
 

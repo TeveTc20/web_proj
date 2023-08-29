@@ -41,19 +41,17 @@ const deleteUserByUserName = async (req, res) => {
   if(!user){
     return res.redirect('/deleteUser?error=1')
   }
-  // if (!user) {
-  //   return res.status(404).json({ errors: ['User was not found'] });
-  //res.send();
+
   return res.redirect('/admin')
 };
 const createAdmin = async (req, res) => {
   const { username, email, password } = req.body;
-  // Check if an admin with the same email already exists
+  
   const existingAdmin = await userService.getUserByUserName(username);
   if (existingAdmin && existingAdmin.userType === 'admin') {
     return res.status(400).json({ message: 'Admin with the same username already exists' });
   }
-  // If no existing admin, create a new admin and save it to the database
+  
   const newAdmin = await userService.createAdmin(username, email, password);
   if (!newAdmin) {
     return res.status(500).json({ message: 'Failed to create admin' });

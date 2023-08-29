@@ -1,6 +1,6 @@
 const postToFacebook = async (message) => {
     try {
-        const accessToken = `EAAwkEYWcSJ8BO2WrxH1qv5CZA0vZCHMAJgmLbebvzJIZAcpHUSMEZCn6QfVmrvBVqzgCthlASIMFIOYc3fzdvJ7wDZCmuyu9XiLJo3ZCqBzi4vglMjK9hMT9CL9hJGsI9414Fmryd3lziWTM6s5Kb1grOVqZCDx14xCB54IqXms1ORZBQVKosM3g3aeYjJaPiFeFkDwAdn8rtUzuU0FitciH15HVjdYeqQAZD`;
+        const accessToken = `EAAwkEYWcSJ8BOwj0yZAbQE6czZBGvQJuXEzgQmTCZCUSSUnYMvxTQfweFR25gbBZCt039TCEHFXVfUWYBrGughiGiJwNObZAeMbRxht63A0QANBZAyjxQd2psQIbp6wmCOym8GhXJyVaRWZCMNAUZBSXEav8DNjbVEQ8qXsMpQdsBZB9ZB376rdgqwB33I0xAtrKozM9FxWdeZBhSW49ztaw8MbuZCegevKQZCkmo`;
         const pageId = '120528934472158';
         const apiUrl = `https://graph.facebook.com/v17.0/${pageId}/feed`;
 

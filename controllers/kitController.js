@@ -1,6 +1,5 @@
 const kitService = require('../services/kitService');
 const kitModel = require('../models/kitModel')
-
 const { postToFacebook } = require('../scripts/facebook');
 
 const createKit = async (req,res) => {
@@ -13,7 +12,6 @@ const createKit = async (req,res) => {
   else
    return res.redirect('/createKit?error=1')
 }
-
 const getKitsSearch = async (req, res) => {
   const payload = req.body.payload.trim();
   const terms = payload.split(/\s+/).map(term => `(?=.*${term})`).join('|');
@@ -57,7 +55,6 @@ const getKitsSearch = async (req, res) => {
 
   res.send({ payload: [...combinedResults, ...uniqueResults] });
 };
-
 const getKitById = async (req, res) => {
   const { id } = req.params;
   const kit = await kitService.getKitById(id)
@@ -134,7 +131,7 @@ const getSalesCountByLeague = async (req, res) => {
   }
 };
 const getTopSellingKits = async (req, res) => {
-  // const { limit } = req.params;
+
   const topSellingkits = await kitService.getTopSellingKits();
   res.json(topSellingkits);
 };
@@ -144,8 +141,6 @@ const updateSalesCount = async (req, res) => {
   await kitService.updateSalesCount(id, salesCount);
   res.send();
 };
-
-
 
 module.exports = {
   createKit,

@@ -5,10 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Branches</title>
+    <title>Stela</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
     <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
@@ -33,23 +36,28 @@
         }
         
         
-        #home {
+        #homee {
             position: relative;
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            background-image: url(messi);
             width: 100%;
-            height: calc(100vh - 80px); 
             background-size: cover;
             background-position: top center;
             overflow: hidden;
+            color:#A50044
         }
-        #branches-list { 
-            color: #fff; 
-            padding: 10px;
-            margin-top: 10px;
-        }
+        #branches-list {
+    color: black;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 12px; /* Add this line to adjust font size */
+}
+
+#branch-details {
+    font-size: 12px; /* Add this line to adjust font size */
+}
+
         #youtube-section {
             text-align: center;
             margin-top: 20px;
@@ -68,15 +76,37 @@
     <section id="nav-placeholder"></section>
 
     <section id="contact">
-        <section id="home">
+        <section id="homee">
+            
             <div class="container">
                 <h1 style="font-size: 30px;">Branches</h1>
-                <div class="container">
-                   
+                
+                <!-- Filters -->
+                <div id="filters">
+                    <label for="country-filter">Country:</label>
+                    <select id="country-filter">
+                        <option value="">All</option>
+                    </select>
+                
+                    <label for="address-filter">Address:</label>
+                    <select id="address-filter">
+                        <option value="">All</option>
+                    </select>
+                
+                    <label for="shabat-filter">Shabat:</label>
+                    <select id="shabat-filter">
+                        <option value="">All</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
                 </div>
+                
+                <!-- Map Container -->
                 <div class="map-container"> 
                     <div class="map" id="map"></div>
                 </div>
+                
+                <!-- Branch Details Container -->
                 <div id="branch-details-container"> 
                     <div id="branches-list">
                        
@@ -84,9 +114,11 @@
                     <div id="branch-details">
                         
                     </div>
+                    </select>
+                </div>
+            </div>
         </section>
     </section>
-
     <div id="youtube-section">
         <br>
         <h2 style="text-align: center;">Take A Look Of Our Branches</h2>
@@ -101,7 +133,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
-  
+    
+
     <script>
         $(document).ready(function() {
             
@@ -116,10 +149,52 @@
                             <div class="branch-card">
                                 <h2>${branch.name} Branch</h2>
                                 <p>Address: ${branch.address}</p>
+                                <p>Country: ${branch.country}</p>
+                                <p>Open at Shabat ?: ${branch.shabat}</p>
                             </div>
                         `;
                         $('#branches-list').append(branchHTML);
                     });
+                    var countryOptions = [];
+                    var addressOptions = [];
+
+                    // Loop through branches to populate filter options
+                    branches.forEach(function(branch) {
+                        if (!countryOptions.includes(branch.country)) {
+                            countryOptions.push(branch.country);
+                            $('#country-filter').append(`<option value="${branch.country}">${branch.country}</option>`);
+                        }
+
+                        if (!addressOptions.includes(branch.address)) {
+                            addressOptions.push(branch.address);
+                            $('#address-filter').append(`<option value="${branch.address}">${branch.address}</option>`);
+                        }
+                    });
+
+                    // Apply filters on change
+                    $('#country-filter, #address-filter, #shabat-filter').change(function() {
+                        var selectedCountry = $('#country-filter').val();
+                        var selectedAddress = $('#address-filter').val();
+                        var selectedShabat = $('#shabat-filter').val();
+
+                        $('.branch-card').hide();
+
+                        branches.forEach(function(branch) {
+                            if (
+                                (selectedCountry === '' || branch.country === selectedCountry) &&
+                                (selectedAddress === '' || branch.address === selectedAddress) &&
+                                (selectedShabat === '' || branch.shabat === selectedShabat)
+                            ) {
+                                $('.branch-card').each(function() {
+                                    if ($(this).find('h2').text() === `${branch.name} Branch`) {
+                                        $(this).show();
+                                    }
+                                });
+                            }
+                        });
+                    });
+            
+                    
                     
 
                     // Initialize the map after loading the branches
@@ -160,10 +235,11 @@
                     });
                 },
                 error: function() {
-                    alert('Error retrieving branches');
+                    console.error('Error retrieving branches');
                 }
             });
         });
     </script>
+  
 </body>
 </html>

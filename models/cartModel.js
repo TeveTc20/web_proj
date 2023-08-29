@@ -18,7 +18,7 @@ const cartSchema = new Schema({
     size: {
         type: String,
         required: true,
-        enum: ['S', 'M', 'L', 'XL', 'XXL'], // Only allow 'S', 'M', 'L', 'XL', 'XXL' as valid values
+        enum: ['S', 'M', 'L', 'XL', 'XXL'], 
     },
     quantity: {
         type: Number,
@@ -28,8 +28,12 @@ const cartSchema = new Schema({
     totalPrice: {
         type: Number,
         required: true,
+    },
+    bought:{
+        type: Boolean,
+        default: false,
+        required: true,
     }
-
 
 });
 

@@ -125,9 +125,7 @@
     padding: 10px;
     text-decoration: none; /* Remove underline from links */
   }
-  .icon-link {
-    color: darkcyan;; /* Change this to your desired color */
-  }
+  
   
   /* home ---------------------------------------*/
   #home{
@@ -244,7 +242,7 @@
     color: #fff;
     margin-right: 10px;
   }
-  
+  /* about --------------------------------------- */
   #about {
     display: flex;
     align-items: center;

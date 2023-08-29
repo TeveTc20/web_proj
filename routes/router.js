@@ -8,8 +8,6 @@ const logInController=require('../controllers/logInController')
 const orderController=require('../controllers/orderController')
 const branchController=require('../controllers/branchController')
 
-
-
 // home-------------------------------------------------------
 
 router.get('/', function(req, res) {
@@ -159,6 +157,11 @@ router.get('/cart.js', function(req, res) {
 });
 router.route('/carts/items/:id').post(cartController.isloggedin,cartController.createCartController).put(cartController.updateCartController).delete(cartController.deleteCartController)
 router.get('/carts/items',cartController.getCartsController)
+
+router.get('/carts/nitems',cartController.getNonBoughtController)
+router.get('/carts/:id',cartController.getCartById)
+
+
 router.post('/cart/checkout',cartController.isloggedin,cartController.checkOut)
 router.get('/finalOrder.html', function(req, res) {
     res.sendFile(path.join(__dirname, "../views/cart/finalOrder.html"));   

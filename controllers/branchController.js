@@ -1,7 +1,7 @@
 const BranchService = require('../services/branchService')
 
 const createBranch = async (req,res) => {
-  const newBranch = await BranchService.createBranch(req.body.name,req.body.address);
+  const newBranch = await BranchService.createBranch(req.body.name,req.body.address,req.body.country,req.body.shabat);
   if(newBranch)
   return res.redirect('/admin')
   else
@@ -24,7 +24,7 @@ const getBranch = async (req,res) => {
   res.json(branch);
 }
 const updateBranch = async (req,res) => {
-  const branch = await BranchService.updateBranch(req.body.existingName, req.body.newName ,req.body.address);
+  const branch = await BranchService.updateBranch(req.body.existingName, req.body.newName ,req.body.address ,req.body.country,req.body.shabat);
   if (!branch)
     return res.redirect('/updateBranch?error=1');
   else

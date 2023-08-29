@@ -11,6 +11,14 @@ const branch = new Schema({
         type:String,
         required:true
     },
+    country:{
+        type:String,
+        required:true
+    },
+    shabat:{
+        type:String,
+        required:true
+    },
    });
 
 module.exports = mongoose.model('branch',branch)

@@ -1,5 +1,3 @@
-// controllers/orderController.js
-
 const orderService = require('../services/orderService');
 
 const createOrder = async (req, res) => {
@@ -11,7 +9,6 @@ const createOrder = async (req, res) => {
         res.status(500).json({ message: 'Failed to create order', error });
     }
 };
-
 const getOrders = async (req, res) => {
     try {
         const orders = await orderService.getOrders(req.session.username);
@@ -20,8 +17,6 @@ const getOrders = async (req, res) => {
         res.status(500).json({ message: 'Failed to get orders', error });
     }
 };
-
-
 const getAllOrders = async (req, res) => {
     try {
         const allOrders = await orderService.getAllOrders();

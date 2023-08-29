@@ -1,12 +1,12 @@
 $(document).ready(function() {
   
-    // AJAX request to fetch cart items
+    
     console.log("in js")
     $.ajax({
-      url: '/carts/items',
+      url: '/carts/nitems',
       method: 'GET',
       success: function(data) {
-        // Iterate over the cart items and populate the table
+        
         var totalPrice = 0;
         data.forEach(function(cartItem) {
             var sizeOptions = 
@@ -28,22 +28,22 @@ $(document).ready(function() {
             totalPrice += cartItem.totalPrice;
         });
         
-        // Display the total price
+        
         $('#totalPrice').html('<span>Total Price: $' + totalPrice + '</span>');
 
-        // Attach event handlers for update and remove buttons
+        
         $('.update-btn').click(function() {
           var productItemId = $(this).data('cart-item');
           var newQuantity = parseInt($(this).closest('tr').find('.quantity-input').val(), 10);
           var newSize = $(this).closest('tr').find('.size-selector').val();
           var oldSize = $(this).closest('tr').find('.size-selector').data('initial-size');
           
-          // Ensure the newQuantity is at least 1
+          
           if (isNaN(newQuantity) || newQuantity < 1) {
             newQuantity = 1;
           }
 
-          // AJAX request to update cart item
+        
           $.ajax({
             url: '/carts/items/' + productItemId,
             method: 'PUT',
@@ -55,7 +55,7 @@ $(document).ready(function() {
             },
             success: function() {
               console.log('Cart item updated successfully');
-              // Refresh the page to reflect the updated quantity
+              
               location.reload();
             },
             error: function() {
@@ -67,14 +67,14 @@ $(document).ready(function() {
 
         $('.remove-btn').click(function() {
           var productItemId = $(this).data('cart-item');
-          // AJAX request to remove cart item
+        
           $.ajax({
             url: '/carts/items/' + productItemId,
             method: 'DELETE',
             data:{kitId:productItemId},
             success: function() {
               console.log('Cart item removed successfully');
-              // Refresh the page to reflect the removed item
+              
               location.reload();
             },
             error: function() {

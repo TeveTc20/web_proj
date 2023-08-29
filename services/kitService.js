@@ -49,7 +49,7 @@ const deleteKit = async (description) => {
 }
 const search = async (query) => {
     try {
-      console.log(query);
+      
       const kits = await kit.find({ description: { $regex: query, $options: 'i' } }).exec();
       return kits;
     } catch (err) {

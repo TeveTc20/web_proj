@@ -43,6 +43,13 @@ const deleteAllUserCarts = async (username) => {
 const getCartById = async (cart_id) => {
     return await Cart.findById(cart_id);
 };
+const updateBought = async (username) => {
+    await Cart.updateMany({ username }, { $set: { bought: true } });
+ };
+ const getNonBought = async (username) => {
+    return await Cart.find({ bought: false });
+   
+ };
 
 module.exports = {
     createCart,
@@ -51,5 +58,7 @@ module.exports = {
     updateCart,
     deleteCart,
     deleteAllUserCarts,
-    getCartById
+    getCartById,
+    updateBought,
+    getNonBought
 };

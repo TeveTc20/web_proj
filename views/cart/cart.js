@@ -19,7 +19,7 @@ $(document).ready(function() {
                 '<td>' + cartItem.kitDescription + '</td>' +
                 '<td><select class="form-control size-selector" data-initial-size="' + cartItem.size + '">' + sizeOptions + '</select></td>' +
                 '<td><input type="number" class="form-control quantity-input" value="' + cartItem.quantity + '" data-cart-item="' + cartItem.productId + '" min="1" ></td>' +
-                '<td>' + cartItem.totalPrice + '</td>' +
+                '<td>' + cartItem.totalPrice + '$</td>' +
                 '<td><button class="btn btn-primary update-btn" data-cart-item="' + cartItem.kit + '">Update</button></td>' +
                 '<td><button class="btn btn-danger remove-btn" data-cart-item="' + cartItem.kit + '">Remove</button></td>' +
                 '</tr>';
@@ -29,7 +29,7 @@ $(document).ready(function() {
         });
         
         
-        $('#totalPrice').html('<span>Total Price: $' + totalPrice + '</span>');
+        $('#totalPrice').html('<span>Total Price: ' + totalPrice + '$</span>');
 
         
         $('.update-btn').click(function() {
@@ -83,9 +83,9 @@ $(document).ready(function() {
           });
         });
 
-        // Attach event handler for checkout button
+      
         $('.checkout-btn').click(function() {
-          // AJAX request for checkout
+          
           $.ajax({
             url: '/cart/checkout',
             method: 'POST',
@@ -96,18 +96,18 @@ $(document).ready(function() {
             },
             error: function(jqXHR) {
               if(jqXHR.responseJSON && jqXHR.responseJSON.error === 'NoItemsInCart') {
-                  // Redirect the user to the products page with an error query param
-                  window.location.href = "/allKits?error=NoItemsInCart";
+                 
+                  window.location.href = "/allKits?error=1";
               } else {
                   console.log('Error: Checkout failed');
-                  // Handle other potential errors here
+                 
               }
           }
           });
         });
       },
       error: function() {
-        // Handle error if AJAX request fails
+        
         console.log('Error: Failed to fetch cart items');
       }
     });

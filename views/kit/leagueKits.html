@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="home.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <link rel="stylesheet" href="home.css">
     <script src="search.js"></script>
     <script src="nav.js"></script>
@@ -18,13 +20,15 @@
     <script src="user.js"></script>
     
     <style>
+       
         .kit-card {
-    width: calc(33.33% - 20px); /* Distribute kits in 3 columns with some spacing */
+       font-family: "Pacifico", cursive;
+    width: calc(33.33% - 20px); 
     padding: 15px;
-    margin: 10px; /* Adjust margin for spacing */
+    margin: 10px; 
     display: inline-block;
     vertical-align: top;
-    box-sizing: border-box; /* Include padding and border in the width calculation */
+    box-sizing: border-box; 
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
@@ -66,7 +70,7 @@
         font-weight: normal;
     }
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+           font-family: "Pacifico", cursive;
             margin: 0;
             padding: 0;
             background-color: #f7f7f7;
@@ -79,8 +83,9 @@ h5{
     color: #A50044
 }
 
-        /* Filter section styling */
+       
         .filter-section {
+           font-family: "Pacifico", cursive;
             background-color: #f2f2f2;
             padding: 30px;
             border-radius: 10px;
@@ -89,6 +94,7 @@ h5{
         }
 
         .filter-section h2 {
+            
             font-size: 28px;
             font-weight: bold;
             margin-bottom: 20px;
@@ -101,7 +107,7 @@ h5{
             margin-bottom: 10px;
         }
 
-        /* Custom checkbox styling */
+        
         .form-check-input {
             display: none;
         }
@@ -130,11 +136,11 @@ h5{
         }
 
         .form-check-input:checked + .form-check-label::before {
-            background-color: #3498db; /* Checked checkbox background color */
+            background-color: #3498db; 
         }
 
         .form-check-label:hover::before {
-            background-color: #3498db; /* Hovered checkbox background color */
+            background-color: #3498db; 
         }
     </style>
 </head>
@@ -296,7 +302,7 @@ h5{
 
     <script>
         $(document).ready(function() {
-            // Fetch kits data from the server
+           
             function fetchKits(url) {
                 return $.ajax({
                     type: 'GET',
@@ -304,7 +310,7 @@ h5{
                 });
             }
         
-            // Display kits on the page
+           
             function displayKits(kits) {
                 $('#kit-list').empty();
         
@@ -327,7 +333,7 @@ h5{
                 }
             }
         
-            // Apply filter logic
+           
             function applyFilters(kits) {
                 var selectedLeagues = [];
                 var selectedTeams = [];
@@ -365,47 +371,47 @@ h5{
             }
         
         
-            // Fetch query parameters from the URL
+           
             var queryString = window.location.search;
             var urlParams = new URLSearchParams(queryString);
             var league = urlParams.get('league');
             var team_name = urlParams.get('team_name');
             var type = urlParams.get('type');
         
-            // Mark the corresponding league checkbox as selected and disable others
+            
             if (league) {
                 $('#league' + league.replace(' ', '')).prop('checked', true);
         
-                // Disable the other league checkboxes
+               
                 $('.league-checkbox').each(function() {
                     var checkboxValue = $(this).val();
                     if (checkboxValue !== league) {
                         $(this).prop('disabled', true);
-                        $(this).next('.form-check-label').addClass('text-muted'); // Add a class to style as muted
+                        $(this).next('.form-check-label').addClass('text-muted'); 
                     }
                 });
         
-                // Fetch kits from the specific league
+                
                 var leagueUrl = '/kits/league/' + encodeURIComponent(league);
                 
                 fetchKits(leagueUrl).done(function(kits) {
-                    // Populate team filter checkboxes with teams from the selected league
+                   
                     var teamsInLeague = [...new Set(kits.map(kit => kit.team_name))];
                     $('.team-checkbox').each(function() {
                         var checkboxValue = $(this).val();
                         if (!teamsInLeague.includes(checkboxValue)) {
-                            $(this).parent('.form-check').hide(); // Hide the checkbox label and input
+                            $(this).parent('.form-check').hide(); 
                         }
                     });
         
-                    // Apply initial filters for teams within the league
+                    
                     applyFilters(kits);
                 });
         
-                // Attach event listeners to team and type checkboxes
+              
                 $('.team-checkbox, .type-checkbox').change(function() {
                     fetchKits(leagueUrl).done(function(kits) {
-                        applyFilters(kits); // Apply filters on checkbox change
+                        applyFilters(kits); 
                     });
                 });
             }

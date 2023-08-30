@@ -13,7 +13,7 @@ const createCartController = async (req, res) => {
         const description = kit.description
         let price = parseFloat(kit.price.slice(0, -1));
         price=price*quantity
-        const cartItem=await cartService.findCartByKitAndUsername(kitId,userName,size)
+        const cartItem=await cartService.findCartByKitAndUsername(kitId,userName,size,false)
         if(cartItem){
         let totalquantity=Number(quantity)+cartItem.quantity
         price=price*totalquantity
@@ -67,7 +67,7 @@ const deleteCartController = async (req, res) => {
     try {      
         const kitId  = req.body.kitId
         const{username}=req.session
-        await cartService.deleteCart(kitId, username);
+        await cartService.deleteCart(kitId, username,false);
         res.json({ message: 'Cart deleted successfully' });
     } catch (error) {
         res.status(500).json({ errors: ['Failed to delete cart'] });
@@ -113,7 +113,7 @@ const getNonBoughtController = async (req, res) => {
 const checkOut= async (req,res) =>{
     
     const user= await userService.getUserByUserName(req.session.username)
-    const cart=await cartService.getCartsByUsername(req.session.username)
+    const cart=await cartService.getNonBought(req.session.username)
     
     if (cart.length===0) {
        

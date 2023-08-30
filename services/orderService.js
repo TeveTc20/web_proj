@@ -9,7 +9,7 @@ const orderService = {
             username,
             carts,
             totalQuantity,
-            totalPrice,
+           totalPrice,
         });
         await order.save();
         return order;

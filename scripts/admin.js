@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         xAxisGroup.call(xAxis)
         .selectAll("text")
         .style("font-size", "11px");
+        
 
 
         chartGroup.append("g")
@@ -108,12 +109,13 @@ document.addEventListener('DOMContentLoaded', function() {
             cardBodyDiv.append('p').attr('class', 'card-text').html(`<strong>Username:</strong> ${user.username}`);
             cardBodyDiv.append('p').attr('class', 'card-text').html(`<strong>Email:</strong> ${user.email}`);
             cardBodyDiv.append('p').attr('class', 'card-text').html(`<strong>Type:</strong> ${user.userType}`);
+            
         });
     }).catch(error => {
         console.log('Error: Failed to fetch users', error);
     });
        const ordersContainer = d3.select('#orders-list');
-    d3.json('/orders/username').then(data => {
+    d3.json('/orders').then(data => {
     data.forEach(order => {
         const createdAtFormatted = new Date(order.createdAt).toLocaleString();
         let colDiv = ordersContainer.append('div').attr('class', 'col-md-4 mb-4');
@@ -124,7 +126,8 @@ document.addEventListener('DOMContentLoaded', function() {
         cardBodyDiv.append('p').attr('class', 'card-text').html(`<strong>Username:</strong> ${order.username}`);
         cardBodyDiv.append('p').attr('class', 'card-text').html(`<strong>Created At:</strong> ${createdAtFormatted}`);
         cardBodyDiv.append('p').attr('class', 'card-text').html(`<strong>Quantity:</strong>  ${order.totalQuantity}`);
-        cardBodyDiv.append('p').attr('class', 'card-text').html(`<strong>Price:</strong> ${order.totalPrice} $`);
+        cardBodyDiv.append('p').attr('class', 'card-text').html(`<strong>Price:</strong> ${order.totalPrice}$ `);
+        cardBodyDiv.append('p').attr('class', 'card-text').html(`<strong>Kits:</strong><br> `);
         
         const orderCartIds = order.carts.map(cartId => cartId._id);
         let cartsHtml = ''; 
@@ -132,10 +135,10 @@ document.addEventListener('DOMContentLoaded', function() {
         orderCartIds.forEach((cartId, index) => {
             d3.json(`/carts/${cartId}`)
                 .then(cartData => {
-                    cartsHtml += `<strong></strong> ${cartData.kitDescription}
-                                  quantity - ${cartData.quantity},
-                                  size - ${cartData.size}
-                                  size - ${cartData.totalPrice}$<br>`;
+                    cartsHtml += `*<strong></strong> ${cartData.kitDescription}
+                    <strong>Quantity</strong> - ${cartData.quantity},
+                                  <strong>Size</strong> - ${cartData.size},
+                                  <strong>Price</strong> - ${cartData.totalPrice}$<br>`;
                     
                     if (index === orderCartIds.length - 1) {
                        

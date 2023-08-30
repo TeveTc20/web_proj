@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
   
   <link rel="stylesheet" href="home.css">
   <script src="search.js"></script>
@@ -86,10 +88,11 @@
           <input type="text" class="form-control" name="country" id="branchCountry" required placeholder="Country">
         </div>
 
-        <div class="form-group">
-          <label for="branchShabat">Is open in Shabat</label>
-          <input type="text" class="form-control" name="shabat" id="branchShabat" required placeholder="Shabat">
-        </div>
+        <label for="type1">Is open At Shabat?:</label>
+      <select id="type1" name="shabat" required>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select><br><br>
 
         <button type="submit" class="btn btn-primary">Update</button>
       </form>

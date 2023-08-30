@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
     <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
     <script src="search.js"></script>
     <script src="nav.js"></script>
@@ -23,13 +25,31 @@
 
     <style>
         
-        .map-container {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 50%;
-            bottom: 0;
+        body {
+            font-family: "Pacifico", cursive;
+           }
+        .content-container {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
         }
+
+        .filters-container {
+            padding: 20px;
+        }
+
+        .branch-list-container {
+            overflow-y: auto;
+            padding: 10px; /* Added padding to the branch list container */
+        }
+
+        .map-container {
+            position: relative;
+            width: 100%; /* Full width */
+            height: 700px; /* Set a fixed height for the map */
+        }
+
+        /* Adjust map size */
         #map {
             width: 100%;
             height: 100%;
@@ -100,11 +120,7 @@
                         <option value="No">No</option>
                     </select>
                 </div>
-                
-                <!-- Map Container -->
-                <div class="map-container"> 
-                    <div class="map" id="map"></div>
-                </div>
+
                 
                 <!-- Branch Details Container -->
                 <div id="branch-details-container"> 
@@ -113,6 +129,9 @@
                     </div>
                     <div id="branch-details">
                         
+                    </div>
+                    <div class="map-container"> 
+                        <div class="map" id="map"></div>
                     </div>
                     </select>
                 </div>
@@ -158,7 +177,7 @@
                     var countryOptions = [];
                     var addressOptions = [];
 
-                    // Loop through branches to populate filter options
+                    
                     branches.forEach(function(branch) {
                         if (!countryOptions.includes(branch.country)) {
                             countryOptions.push(branch.country);
@@ -171,7 +190,7 @@
                         }
                     });
 
-                    // Apply filters on change
+                    
                     $('#country-filter, #address-filter, #shabat-filter').change(function() {
                         var selectedCountry = $('#country-filter').val();
                         var selectedAddress = $('#address-filter').val();
@@ -197,18 +216,19 @@
                     
                     
 
-                    // Initialize the map after loading the branches
+                    
                     var map = L.map('map').setView([32.0853, 34.7818], 8);
+                    map.scrollWheelZoom.disable();
 
-                    // Add the tile layer (you can choose a different tile layer if desired)
+                    
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
                         maxZoom: 18,
                     }).addTo(map);
 
-                    // Iterate through the branches and add markers to the map
+                  
                     branches.forEach(function(branch) {
-                        // Geocode the address to obtain coordinates
+                       
                         $.ajax({
                             url: `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(branch.address)}&key=6735aa21d754478fa5b657514e95cbfa`,
                             method: 'GET',
@@ -220,6 +240,8 @@
                                         <div class="branch-card">
                                             <h2>${branch.name} Branch</h2>
                                             <p>Address: ${branch.address}</p>
+                                            <p>Country: ${branch.country}</p>
+                                            <p>Open at Shabat?: ${branch.shabat}</p>
                                         </div>
                                     `);
                                 

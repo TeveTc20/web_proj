@@ -10,6 +10,8 @@
             <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
         <link rel="stylesheet" href="home.css">
         <script src="search.js"></script>
         <script src="footer.js"></script>
@@ -139,9 +141,10 @@
         
                     data.forEach(order => {
                         const createdAtFormatted = new Date(order.createdAt).toLocaleString();
-                        let cartsHtml = `Order ID: ${order._id}<br>
-                                         Created At: ${createdAtFormatted}<br>
-                                         Total Price: ${order.totalPrice}$<br>
+                        let cartsHtml = `<strong>Order ID:</strong> ${order._id}<br>
+                                        <strong>Created At:</strong> ${createdAtFormatted}<br>
+                                        <strong>Total Price:</strong> ${order.totalPrice}$<br>
+                                        <strong>Kits:</strong><br>
                                         `; 
             
                         order.carts.forEach(cart => {
@@ -150,10 +153,10 @@
                                 method: 'GET',
                                 dataType: 'json',
                                 success: function (cartData) {
-                                    cartsHtml += ` Description: ${cartData.kitDescription}
-                                                Size: ${cartData.size}
-                                                Quantity: ${cartData.quantity}
-                                                Price:${cartData.totalPrice}$<br>
+                                    cartsHtml += ` *<strong></strong> ${cartData.kitDescription},
+                                                    <strong>Size:</strong> ${cartData.size},
+                                                    <strong>Quantity:</strong> ${cartData.quantity},
+                                                     <strong>Price:</strong>${cartData.totalPrice}$<br>
                                                  `;
             
                                     if (order.carts.indexOf(cart) === order.carts.length - 1) {

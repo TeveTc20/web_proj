@@ -8,20 +8,17 @@ const createCart = async (username, kit,kitDescription, size, quantity, totalPri
         kitDescription,
         size,
         quantity,
-        totalPrice
+        totalPrice,
     });
     return await newCart.save(); 
 };
-
 const getCartsByUsername = async (username) => {
     return await Cart.find({ username });
 };
-
-const findCartByKitAndUsername = async (kit, username,size) => {
+const findCartByKitAndUsername = async (kit, username,size,bought) => {
     
-    return await Cart.findOne({ kit, username,size });
+    return await Cart.findOne({ kit, username,size,bought });
 };
-
 const updateCart = async (kit, size,newsize, quantity, totalPrice, username) => {
     const updateCart = await Cart.findOne({ kit, username,size});
     updateCart.size = newsize;
@@ -30,13 +27,11 @@ const updateCart = async (kit, size,newsize, quantity, totalPrice, username) => 
     return await updateCart.save();
     
 };
-
-const deleteCart = async (kit, username) => {
-    const deleteCart = await Cart.findOne({ kit, username });
+const deleteCart = async (kit, username,bought) => {
+    const deleteCart = await Cart.findOne({ kit, username,bought });
     await deleteCart.deleteOne();
     return deleteCart;
 };
-
 const deleteAllUserCarts = async (username) => {
     await Cart.deleteMany({ username });
 };
@@ -47,7 +42,7 @@ const updateBought = async (username) => {
     await Cart.updateMany({ username }, { $set: { bought: true } });
  };
  const getNonBought = async (username) => {
-    return await Cart.find({ bought: false });
+    return await Cart.find({ username , bought: false });
    
  };
 

@@ -83,9 +83,9 @@ const getKits = async (req, res) => {
   res.json(kits);
 };
 const updateKit = async (req, res) => {
-  const { existingName, newName,price,image} = req.body;
+  const { existingName, newName,league,team_name,type,price,image} = req.body;
 
-  const product = await kitService.updateKit(existingName, newName,price,image);
+  const product = await kitService.updateKit(existingName, newName,league,team_name,type,price,image);
 
   if (!product) {
     return res.redirect('/updateKit?error=1');

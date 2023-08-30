@@ -28,14 +28,17 @@ const getKitByTeam = async (team_name) => {
 const getKitByLeague = async (league) => {
   return await kit.find({ league: league });
 };
-const updateKit = async (existingName,newName,price,image) => {
+const updateKit = async (existingName,newName,league,team_name,type,price,image) => {
   const product = await getKitByDescription(existingName);
     
   if (!product) {
     return null;
   }
-    product.description = newName  
-    product.price = price
+    product.description = newName
+    product.league = league
+    product.team_name = team_name
+    product.type = type  
+    product.price = price+"$"
     product.image = image
     await product.save();
     return product;

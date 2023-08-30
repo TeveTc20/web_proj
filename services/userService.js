@@ -29,7 +29,7 @@ const updateUser = async (current_username, username, email, password, userType)
   const currentUser = await getUserByUserName(current_username);
   if (!currentUser) return null;
 
-  // Check if the username is being changed and if the new username already exists.
+ 
   if (current_username !== username) {
       const existingUsername = await getUserByUserName(username);
       if (existingUsername) {
@@ -37,7 +37,7 @@ const updateUser = async (current_username, username, email, password, userType)
       }
   }
 
-  // Check if the email already exists.
+
   const existingEmailUser = await getUserByEmail(email);
   if (existingEmailUser && existingEmailUser._id !== currentUser._id) {
       return null
@@ -59,14 +59,14 @@ const deleteUserByUserName = async (username) => {
     return user;
 };
 const createAdmin = async (username, email, password) => {
-  // Check if an admin with the same email already exists
+ 
   const existingAdmin = await User.findOne({ username, userType: 'admin' });
 
   if (existingAdmin) {
     return null
   }
 
-  // If no existing admin, create a new admin and save it to the database
+ 
   const admin = new User({
     username,
     email,
